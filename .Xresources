@@ -1,6 +1,4 @@
-! terminal colors
-
-! Jellybeans Terminal Colours
+! Jellybeans colorscheme
 
 ! vim: ft=xdefaults
 *background: #151515
@@ -30,79 +28,43 @@
 *color7: #888888
 *color15: #E8E8D3
 
-!! Hybrid Terminal Colours
-!!
-!! vim: ft=xdefaults
- 
-!! Tomorrow-Night Palette
-!#define t_background #1D1F21
-!#define t_current_line #282A2E
-!#define t_selection #373B41
-!#define t_foreground #C5C8C6
-!#define t_comment #707880
-!#define t_red #CC6666
-!#define t_orange #DE935F
-!#define t_yellow #F0C674
-!#define t_green #B5BD68
-!#define t_aqua #8ABEB7
-!#define t_blue #81A2BE
-!#define t_purple #B294BB
- 
-!*background: t_background
-!*foreground: t_foreground
-!! black
-!*color0: t_current_line
-!*color8: t_selection
-!! red
-!*color1: #A54242
-!*color9: t_red
-!! green
-!*color2: #8C9440
-!*color10: t_green
-!! yellow
-!*color3: t_orange
-!*color11: t_yellow
-!! blue
-!*color4: #5F819D
-!*color12: t_blue
-!! magenta
-!*color5: #85678F
-!*color13: t_purple
-!! cyan
-!*color6: #5E8D87
-!*color14: t_aqua
-!! white
-!*color7: t_comment
-!*color15: t_foreground
+! Xft settings
+!Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
 
-! urxvt
-URxvt*title: Terminal
-URxvt*cursorBlink: false
+! urxvt settings
 URxvt*loginShell: true
-URxvt*scrollstyle: plain
+URxvt*modifier: Ctrl
+
+URxvt*cursorBlink: false
+URxvt*cursorUnderline: true
+
+URxvt*underlineURLs: true
+URxvt*transparent: false
+!URxvt*fading: 30
+
+URxvt*scrollBar: false
+!URxvt*scrollBar_right: true
+!URxvt*scrollBar_floating: false
+!URxvt*scrollstyle: plain
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+
 URxvt*scrollTtyKeypress: true
 URxvt*scrollTtyOutput: true 
 URxvt*scrollWithBuffer: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
 URxvt*skipScroll: true
-URxvt*scrollBar: true
-URxvt*scrollBar_right: true
-URxvt*scrollBar_floating: false
-URxvt*fading: 30
-URxvt*utmpInhibit: false
-URxvt*urgentOnBell: false
-URxvt*visualBell: true
-URxvt*mapAlert: true
-URxvt*mouseWheelScrollPage: false
-URxvt*font: xft:DroidSansMono:size=12:antialias=true
-URxvt*boldFont: xft:DroidSans\\-Bold:size=12:antialias=true
-URxvt*saveLines: 0
-URxvt*buffered: true
-URxvt*hold: false
-URxvt*internalBorder:
-URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
-URxvt*perl-ext-common:
-URxvt*perl-ext:
+URxvt*mouseWheelScrollPage: true
 
 ! fc-list to list fonts
+URxvt*font: xft:Droid Sans Mono:size=12
+URxvt*boldFont: xft:Droid Sans\\-Bold:size=12
+
+URxvt*saveLines: 2000 
+URxvt*buffered: true
+URxvt*hold: false
+URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+

@@ -24,10 +24,10 @@ if(interactive()){
 
     # Alias functions that are commonly used for variable names
     transpose <- t
-    data_ <- utils::data
+    data. <- utils::data
     display.str <- utils::str
 
     # Quit without save prompt
-    q <- function(...) quit(save = "no", ...)
+    q <- function(save = "no", ...) quit(save = save, ...)
 }
 
