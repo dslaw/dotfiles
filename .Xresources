@@ -54,17 +54,25 @@ URxvt*secondaryScreen: true
 URxvt*secondaryScroll: true
 
 URxvt*scrollTtyKeypress: true
-URxvt*scrollTtyOutput: true 
+URxvt*scrollTtyOutput: true
 URxvt*scrollWithBuffer: false
 URxvt*skipScroll: true
 URxvt*mouseWheelScrollPage: true
 
 ! fc-list to list fonts
-URxvt*font: xft:Droid Sans Mono:size=12
+URxvt*font: xft:Droid Sans Mono for Powerline:size=12
 URxvt*boldFont: xft:Droid Sans\\-Bold:size=12
 
-URxvt*saveLines: 2000 
+URxvt*saveLines: 5000
 URxvt*buffered: true
 URxvt*hold: false
 URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+
+! copy/paste in terminal
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard
+URxvt.iso14755: false
+!URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd: xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
 

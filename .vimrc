@@ -117,6 +117,10 @@ nnoremap <space> za
 " cd ~/.vim/bundle
 " git clone https://github.com/bling/vim-airline
 set laststatus=2  " airline bar always present
+let g:airline_theme='raven'
+let g:airline#extensions#tabline#enabled=1
+
+let g:airline_powerline_fonts = 1
 
 " Conque Shell
 " cd ~/.vim/bundle
