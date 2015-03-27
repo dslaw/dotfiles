@@ -11,22 +11,21 @@
 
 # variables
 set $mod Mod4
-set $term xfce4-terminal
+set $term urxvt
 
-# Startup programs 
+# Startup programs
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id dropbox start -i
 exec --no-startup-id compton --config /home/dave/.compton.conf # transparency
 exec --no-startup-id nitrogen --restore  # wallpaper
-exec --no-startup-id i3-msg 'workspace $WS1; exec urxvt -title homesweethome -e fish' 
+exec --no-startup-id i3-msg 'workspace $WS1; exec urxvt -title homesweethome -e fish'
 
 # Start apps
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec urxvt -e fish
+bindsym $mod+Return exec $term -e fish
 bindsym $mod+d exec dmenu_run
 bindsym $mod+c exec chromium --incognito
 bindsym $mod+Shift+c exec firefox --private
-bindsym $mod+m exec $term -e cmus
+bindsym $mod+m exec $term -title cmus -e cmus
 bindsym $mod+t exec thunar
 
 # Commands for specific windows
@@ -113,6 +112,8 @@ set $WS6 "6: office"
 
 # Assign programs to workspaces
 assign [class="Wicd"] $WS1
+assign [title="cmus"] $WS5
+assign [class="Smplayer"] $WS5
 assign [class="Texstudio"] $WS6
 assign [class="libre"] $WS6
 
@@ -123,7 +124,7 @@ bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace $WS3
 bindsym $mod+4 workspace $WS4
 bindsym $mod+5 workspace $WS5
-bindsym $mod+6 workspace $WS6 
+bindsym $mod+6 workspace $WS6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
@@ -155,8 +156,8 @@ mode "resize" {
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
         bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow height 10 px or 10 ppt
         bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
@@ -203,7 +204,7 @@ bar {
         colors {
             background  $night
             statusline  $graycloud
-            separator   $graycloud 
+            separator   $graycloud
         }
 
         mode dock

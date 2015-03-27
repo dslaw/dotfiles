@@ -68,7 +68,7 @@ set tw=79  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
 set colorcolumn=79 " add a bar at column 79
-highlight ColorColumn ctermbg=233
+highlight ColorColumn ctermbg=243
 
 " Paragraph formatting
 " Places paragraphs onto one line
@@ -78,6 +78,9 @@ nmap Q gqap
 " Useful settings
 set history=700
 set undolevels=700
+
+" Remove pause when exiting insert mode
+set timeoutlen=50
 
 " Search options
 set hlsearch
@@ -109,6 +112,16 @@ set foldnestmax=2      " deepest fold level
 " Map spacebar to toggle folds
 nnoremap <space> za
 
+" Move cursor to top of current visible window
+nnoremap K H
+
+" Insert newline without entering insert mode
+nnoremap h o<Esc>
+nnoremap H O<Esc>
+
+" Strip trailing whitespace
+command! Strip %s/\s\+$//g
+
 " #########################
 "          Plugins
 " #########################
@@ -119,7 +132,6 @@ nnoremap <space> za
 set laststatus=2  " airline bar always present
 let g:airline_theme='raven'
 let g:airline#extensions#tabline#enabled=1
-
 let g:airline_powerline_fonts = 1
 
 " Conque Shell
@@ -170,6 +182,7 @@ let g:syntastic_python_python_exec = '/usr/bin/python3'
 " apt-get install tmux
 " git clone https://github.com/vim-scripts/Vim-R-plugin
 let vimrplugin_assign = 2 " two underscores becomes <-
+let vimrplugin_term = "urxvt"
 
 " vim-ipython
 " cd ~/.vim/bundle
