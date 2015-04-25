@@ -12,8 +12,10 @@ set secure
 
 " Plugin manager
 execute pathogen#infect()
-syntax on
-filetype plugin indent on
+"syntax on
+syntax enable
+filetype plugin on
+filetype indent on
 
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -80,7 +82,8 @@ set history=700
 set undolevels=700
 
 " Remove pause when exiting insert mode
-set timeoutlen=50
+set timeoutlen=1000 " cannot be too low otherwise Vim-R shortcuts won't work
+set ttimeoutlen=100
 
 " Search options
 set hlsearch
@@ -94,9 +97,9 @@ noremap l j
 noremap j h
 
 " Pane navigation
-noremap <C-W><C-J> <C-W><C-H>
-noremap <C-W><C-L> <C-W><C-J>
-"noremap <C-W><C-K> <C-W><C-K>
+nnoremap <C-J> <C-W><C-H>
+nnoremap <C-L> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
 " vim can't map keys to ctrl + ;
 " Ctrl + w twice to cycle through panes clockwise
 " leave Ctrl+W on for compatibility with conqueterm
@@ -187,5 +190,6 @@ let vimrplugin_term = "urxvt"
 " vim-ipython
 " cd ~/.vim/bundle
 " apt-get install ipython3 ipython3-qtconsole
+" git clone https://github.com/ivanov/vim-ipython
 " :source ~/.vim/bundle/vim-ipython/ftplugin/python/ipy.vim
 

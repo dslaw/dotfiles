@@ -112,10 +112,11 @@ set $WS6 "6: office"
 
 # Assign programs to workspaces
 assign [class="Wicd"] $WS1
+assign [class="Chromium"] $WS2
 assign [title="cmus"] $WS5
 assign [class="Smplayer"] $WS5
 assign [class="Texstudio"] $WS6
-assign [class="libre"] $WS6
+assign [class="libre*"] $WS6
 
 # switch to workspace
 bindsym $mod+Tab workspace next

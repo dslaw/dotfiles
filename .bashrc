@@ -115,7 +115,6 @@ fi
 # Setup virtualenvwrapper for python
 source /usr/local/bin/virtualenvwrapper.sh
 
-
 # Lines added by the Vim-R-plugin command :RpluginConfig (2015-Jan-09 01:14):
 # Change the TERM environment variable (to get 256 colors) and make Vim
 # connecting to X Server even if running in a terminal emulator (to get
