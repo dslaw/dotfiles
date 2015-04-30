@@ -7,6 +7,10 @@ dir=~/dotfiles
 backup=~/dotfiles_old
 files=".bashrc .vimrc .Xresources .xinitrc .Rprofile .i3 .compton.conf"
 
+if hash ranger 2>/dev/null; then
+    files="$files .config/ranger"
+fi
+
 mkdir -p $backup
 
 cd $dir
