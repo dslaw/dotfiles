@@ -63,7 +63,7 @@ URxvt*mouseWheelScrollPage: true
 URxvt*font: xft:Droid Sans Mono for Powerline:size=12
 URxvt*boldFont: xft:Droid Sans\\-Bold:size=12
 
-URxvt*saveLines: 5000
+URxvt*saveLines: 10000
 URxvt*buffered: true
 URxvt*hold: false
 URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))

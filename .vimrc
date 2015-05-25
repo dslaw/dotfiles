@@ -8,11 +8,10 @@ set exrc
 set secure
 
 " Fish compatibility
-" set shell=/bin/bash
+"set shell=/bin/bash
 
 " Plugin manager
 execute pathogen#infect()
-"syntax on
 syntax enable
 filetype plugin on
 filetype indent on
@@ -21,7 +20,7 @@ filetype indent on
 autocmd! bufwritepost .vimrc source %
 
 " Colorscheme
-" set background=dark
+"set background=dark
 colorscheme jellybeans
 
 " Copy and paste
@@ -66,11 +65,12 @@ set backspace=indent,eol,start
 
 " Display line numbers and length
 set number " show line numbers
-set tw=79  " width of document (used by gd)
+set tw=80  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
-set colorcolumn=79 " add a bar at column 79
+"set colorcolumn=80 " add a bar at column 80
 highlight ColorColumn ctermbg=243
+call matchadd('ColorColumn', '\%80v', 243) " add a bar if line goes over boundary
 
 " Paragraph formatting
 " Places paragraphs onto one line
@@ -86,6 +86,7 @@ set timeoutlen=1000 " cannot be too low otherwise Vim-R shortcuts won't work
 set ttimeoutlen=100
 
 " Search options
+hi Search cterm=None ctermfg=213 ctermbg=16 gui=None guifg=213 guibg=16
 set hlsearch
 set incsearch
 set ignorecase
@@ -100,7 +101,7 @@ noremap j h
 nnoremap <C-J> <C-W><C-H>
 nnoremap <C-L> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
-" vim can't map keys to ctrl + ;
+" can't map keys to ctrl + ;
 " Ctrl + w twice to cycle through panes clockwise
 " leave Ctrl+W on for compatibility with conqueterm
 
@@ -112,8 +113,8 @@ set splitright
 set foldmethod=indent  " folding based on indent
 set nofoldenable       " temporarily disable folding when file is opened
 set foldnestmax=2      " deepest fold level
-" Map spacebar to toggle folds
-nnoremap <space> za
+" Map ff to toggle folds
+nnoremap ff za
 
 " Move cursor to top of current visible window
 nnoremap K H
@@ -179,6 +180,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " set python checker to Python 3
 let g:syntastic_python_python_exec = '/usr/bin/python3'
+" stop complaining for Rcpp headers
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_include_dirs = ['/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/']
 
 " Vim-R-plugin
 " cd ~/.vim/bundle
@@ -186,10 +190,4 @@ let g:syntastic_python_python_exec = '/usr/bin/python3'
 " git clone https://github.com/vim-scripts/Vim-R-plugin
 let vimrplugin_assign = 2 " two underscores becomes <-
 let vimrplugin_term = "urxvt"
-
-" vim-ipython
-" cd ~/.vim/bundle
-" apt-get install ipython3 ipython3-qtconsole
-" git clone https://github.com/ivanov/vim-ipython
-" :source ~/.vim/bundle/vim-ipython/ftplugin/python/ipy.vim
 

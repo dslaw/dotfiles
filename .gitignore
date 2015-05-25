@@ -1,3 +1,8 @@
-# default i3 config
-default
+.i3/default
+.i3/colors.txt
+
+.config/ranger/bookmarks
+.config/ranger/commands.pyo
+.config/ranger/history
+.config/ranger/tagged
 

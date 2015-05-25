@@ -1,7 +1,7 @@
 ##################################################
 ## R profile
 
-if(interactive()){
+if (interactive()) {
 
     # Add support for Vim-R-plugin
     require(colorout)
@@ -9,6 +9,9 @@ if(interactive()){
     require(vimcom)
 
     require(data.table)
+
+    # Personal functions
+    source("~/Scripts/R/libraria.R")
 
     # Set options
     options(max.print = 60L,
@@ -19,9 +22,6 @@ if(interactive()){
             pdfviewer = "/usr/bin/zathura")
 
     utils::rc.settings(ipck = TRUE)
-
-    # Personal functions
-    source("/home/dave/Scripts/R/libraria.R")
 
     # Alias functions that are commonly used for variable names
     transpose <- t
