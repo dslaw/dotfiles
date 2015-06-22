@@ -72,6 +72,10 @@ set fo-=t  " don't automatically wrap text when typing
 highlight ColorColumn ctermbg=243
 call matchadd('ColorColumn', '\%80v', 243) " add a bar if line goes over boundary
 
+" Highlight current line number
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+set cursorline
+
 " Paragraph formatting
 " Places paragraphs onto one line
 vmap Q gq
@@ -183,6 +187,8 @@ let g:syntastic_python_python_exec = '/usr/bin/python3'
 " stop complaining for Rcpp headers
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_include_dirs = ['/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/']
+" enable C++11
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
 
 " Vim-R-plugin
 " cd ~/.vim/bundle
@@ -190,4 +196,20 @@ let g:syntastic_cpp_include_dirs = ['/home/dave/R/x86_64-pc-linux-gnu-library/3.
 " git clone https://github.com/vim-scripts/Vim-R-plugin
 let vimrplugin_assign = 2 " two underscores becomes <-
 let vimrplugin_term = "urxvt"
+
+" Enhanced C++ syntax highlighting
+" cd ~/.vim/bundle
+" git clone https://github.com/octol/vim-cpp-enhanced-highlight
+
+" Todo lists
+" cd ~/.vim/bundle
+" git clone https://github.com/vitalk/vim-simple-todo
+
+" HTML/XML tag highlighting
+" cd ~/.vim/bundle
+" git clone https://github.com/Valloric/MatchTagAlways
+nnoremap <leader>% :MtaJumpToOtherTag<cr>
+let g:mta_use_matchparen_group = 0
+let g:mta_set_default_matchtag_color = 0
+highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 
