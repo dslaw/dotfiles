@@ -1,0 +1,4 @@
+# Get rid of Slurped into buffer message when using vim-slime
+msgwait 0
+msgminwait 0
+
