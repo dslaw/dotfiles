@@ -262,10 +262,10 @@ nmap <leader>d <Plug>SlimeLineSend
 
 " Launch an external REPL
 let g:slime_terminal = "gurxvt"
-let g:slime_default_config = {"gsocket_name": "default",
-                              \"gtarget_pane": ":",
-                              \"gsessionname": "repl",
-                              \"gwindowname": "0"
+let g:slime_default_config = {"socket_name": "default",
+                              \"target_pane": ":",
+                              \"sessionname": "repl",
+                              \"windowname": "0"
                              \}
 
 function! SlimeSpawn(cmd)
@@ -293,7 +293,6 @@ if g:slime_target == "tmux"
     " doesn"t work with screen
     nmap <leader>df :call SlimeSpawn("")<CR>
 endif
-
 
 " Screen
 " cd ~/.vim/bundle
