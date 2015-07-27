@@ -1,5 +1,6 @@
 ##################################################
 ## R profile
+##################################################
 
 if (interactive()) {
 
@@ -8,10 +9,15 @@ if (interactive()) {
     require(setwidth)
     require(vimcom)
 
-    require(data.table)
+    Rprofile <- new.env()
 
     # Personal functions
-    source("~/Scripts/R/libraria.R")
+    if (file.exists("~/bin/libraria.R")) {
+        sys.source("~/bin/libraria.R", envir = Rprofile)
+        .Last <- function() {
+            savepkgs()
+        }
+    }
 
     # Set options
     options(max.print = 60L,
@@ -19,8 +25,14 @@ if (interactive()) {
             stringsAsFactors = FALSE,
             show.signif.stars = FALSE,
             scipen = 7,
-            pdfviewer = "/usr/bin/zathura")
+            pdfviewer = "/usr/bin/zathura",
 
+            # Warn on partial matches
+            warnPartialMatchAttr = TRUE,
+            warnPartialMatchDollar = TRUE,
+            warnPartialMatchArgs = TRUE)
+
+    # Autocomplete package names in require and library
     utils::rc.settings(ipck = TRUE)
 
     # Alias functions that are commonly used for variable names
@@ -29,6 +41,8 @@ if (interactive()) {
     display.str <- utils::str
 
     # Quit without save prompt
-    q <- function(save = "no", ...) quit(save = save, ...)
+    Rprofile$q <- function(save = "no", ...) quit(save = save, ...)
+
+    attach(Rprofile)
 }
 

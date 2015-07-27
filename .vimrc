@@ -152,6 +152,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tagbar#flags = 's'
 
 " Fugitive
 " cd ~/.vim/bundle
@@ -183,17 +184,17 @@ nmap <F5> :UndotreeToggle<CR>
 " syntastic
 " cd ~/.vim/bundle
 " git clone https://github.com/scrooloose/syntastic
-let g:syntastic_python_python_exec = "/usr/bin/env python3"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" set python checker to Python 3
-let g:syntastic_python_python_exec = "/usr/bin/python3"
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+let g:syntastic_python_python_exec = "/usr/bin/env python3"
+
 " stop complaining for Rcpp headers
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/"]
@@ -253,15 +254,14 @@ highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 " https://github.com/jpalardy/vim-slime/blob/master/doc/vim-slime.txt
 " requires tmux/screen
 "let g:slime_python_ipython = 1
-"let g:slime_target = "tmux"
-let g:slime_target = "screen"
+let g:slime_target = "tmux"
 
 let g:slime_no_mappings = 1
 xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 
 " Launch an external REPL
-let g:slime_terminal = "gurxvt"
+let g:slime_terminal = "urxvt"
 let g:slime_default_config = {"socket_name": "default",
                               \"target_pane": ":",
                               \"sessionname": "repl",
@@ -301,9 +301,3 @@ endif
 "let g:ScreenShellExternal = 1
 "let g:ScreenShellTerminal = "urxvt"
 
-" Conque Shell
-" cd ~/.vim/bundle
-" git clone https://github.com/oplatek/Conque-Shell
-"let g:ConqueTerm_InsertOnEnter = 1
-"let g:ConqueTerm_CWInsert = 1
-"let g:ConqueTerm_SendVisKey = "<leader>d"
