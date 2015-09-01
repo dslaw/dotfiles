@@ -125,8 +125,8 @@ nnoremap <leader>= <C-W>=
 set foldmethod=indent  " folding based on indent
 set nofoldenable       " temporarily disable folding when file is opened
 set foldnestmax=2      " deepest fold level
-" Map ff to toggle folds
-nnoremap ff za
+" Remap fold toggling
+nnoremap <leader>f za
 
 " Move cursor to top of current visible window
 nnoremap K H
@@ -250,7 +250,7 @@ highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
 " cd ~/.vim/bundle
-" git clone git://github.com/jpalardy/vim-slime.git
+" git clone https://github.com/jpalardy/vim-slime.git
 " https://github.com/jpalardy/vim-slime/blob/master/doc/vim-slime.txt
 " requires tmux/screen
 "let g:slime_python_ipython = 1
@@ -285,7 +285,7 @@ function! SlimeSpawn(cmd)
 endfunction
 
 " TODO: Add autocommands for file type detection
-nmap <leader>pf :call SlimeSpawn("python3")<CR>
+nmap <leader>pf :call SlimeSpawn("bpython3")<CR>
 nmap <leader>jf :call SlimeSpawn("julia")<CR>
 nmap <leader>sf :call SlimeSpawn("sqlite3")<CR>
 
@@ -296,7 +296,7 @@ endif
 
 " Screen
 " cd ~/.vim/bundle
-" git clone git://github.com/ervandew/screen
+" git clone https://github.com/ervandew/screen
 "let g:ScreenImpl = "Tmux"
 "let g:ScreenShellExternal = 1
 "let g:ScreenShellTerminal = "urxvt"

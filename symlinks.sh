@@ -5,7 +5,7 @@
 
 dir=~/dotfiles
 backup=~/dotfiles_old
-files=".bashrc .vimrc .Xresources .xinitrc .Rprofile .i3 .compton.conf"
+files=".bashrc .vimrc .Xresources .xinitrc .Rprofile .i3 .compton.conf .bpython"
 
 if hash ranger 2>/dev/null; then
     files="$files .config/ranger"

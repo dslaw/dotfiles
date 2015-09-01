@@ -31,8 +31,8 @@ exec --no-startup-id wicd-client
 # Start apps
 bindsym $mod+Return exec $term -e fish
 bindsym $mod+d exec dmenu_run -i -l 5 -p '>>' -nb '$night' -nf '$puce' -sb '$darkslategrey'
-bindsym $mod+c exec chromium --incognito
-bindsym $mod+Shift+c exec firefox --private-window $homepage
+bindsym $mod+Shift+c exec chromium --incognito
+bindsym $mod+c exec firefox --private-window $homepage
 bindsym $mod+m exec $term -title cmus -e cmus
 bindsym $mod+t exec thunar
 bindsym $mod+y exec $term -e ranger
@@ -44,6 +44,8 @@ for_window [class="[dD]eluge"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [title="^homesweethome$"] floating enable
 for_window [title="^homesweethome$"] resize shrink height 200px
+for_window [title="^homesweethome$"] resize shrink width 200px
+for_window [title="^homesweethome$"] move absolute position 875 px 600 px
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -127,7 +129,7 @@ set $WS6 "6: office"
 # Assign programs to workspaces
 assign [class="Wicd"] $WS1
 assign [class="Chromium"] $WS2
-#assign [class="Firefox"] $WS2
+assign [class="Firefox"] $WS2
 assign [title="cmus"] $WS5
 assign [class="Smplayer"] $WS5
 assign [class="mplayer*"] $WS5
@@ -213,5 +215,19 @@ bar {
         status_command i3status -c ~/.i3/i3status.conf
         tray_output primary
         strip_workspace_numbers no
+        separator_symbol " "
 }
 
+# i3-gaps
+#for_window [class="^.*"] border pixel 0
+gaps inner 8
+gaps outer 4
+#smart_gaps on
+smart_borders on
+# fix graphics glitch
+new_window none
+
+workspace $WS1 gaps inner 0
+workspace $WS1 gaps outer 0
+workspace $WS2 gaps inner 0
+workspace $WS2 gaps outer 0
