@@ -11,6 +11,8 @@ if hash ranger 2>/dev/null; then
     files="$files .config/ranger"
 fi
 
+files="$files .config/fish"
+
 mkdir -p $backup
 
 cd $dir
