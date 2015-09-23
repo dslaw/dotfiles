@@ -25,52 +25,62 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+# Prompt with git branch status
+git_branch() {
+    git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||'
+}
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+git_dirty() {
+    git status -s --ignore-submodules=dirty 2> /dev/null
+}
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
+set_prompt() {
+    last_command=$?
+    gitbranch=$(git_branch)
+    dirty=$(git_dirty)
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
+    Reset='\[\e[00m\]'
+    White='\[\e[01;37m\]'
+
+    Light_Blue='\[\e[01;34m\]'
+    Light_Green='\[\e[01;32m\]'
+    Light_Cyan='\[\e[01;36m\]'
+    Light_Red='\[\e[01;31m\]'
+    Light_Purple='\[\e[01;35m\]'
+    Light_Gray='\[\e[00;37m\]'
+
+    Blue='\[\e[00;30m\]'
+    Green='\[\e[00;32m\]'
+    Cyan='\[\e[00;36m\]'
+    Red='\[\e[00;31m\]'
+    Purple='\[\e[00;35m\]'
+    Dark_Gray='\[\e[01;30m\]'
+    Yellow='\[\e[00;33m\]'
+
+    PS1="$Purple\\u"
+    PS1+="$Light_Gray in "
+    PS1+="$Light_Red$(pwd)    "
+
+    if [ $gitbranch ]; then
+        if [ -z "$dirty" ]; then
+            PS1+="$Light_Blue[ $gitbranch $Light_Blue]"
+        else
+            PS1+="$Light_Blue[ $Red$gitbranch± $Light_Blue]"
+        fi
     fi
-fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+    if [[ $last_command == 0 ]]; then
+        PS1+="\n$Light_Gray>>>$Reset "
+    else
+        PS1+="\n$Red>>>$Reset "
+    fi
+}
+
+PROMPT_COMMAND='set_prompt'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -79,70 +89,8 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-# Setup virtualenvwrapper for python
-source /usr/local/bin/virtualenvwrapper.sh
-
-# Lines added by the Vim-R-plugin command :RpluginConfig (2015-Jan-09 01:14):
-# Change the TERM environment variable (to get 256 colors) and make Vim
-# connecting to X Server even if running in a terminal emulator (to get
-# dynamic update of syntax highlight and Object Browser):
-#if [ "$TERM" = "xterm" ] || [ "$TERM" = "xterm-256color" ]
-#then
-#    export TERM=xterm-256color
-#    export HAS_256_COLORS=yes
-#fi
-#if [ "$TERM" = "screen" ] && [ "$HAS_256_COLORS" = "yes" ]
-#then
-#    export TERM=screen-256color
-#fi
-#if [ "x$DISPLAY" != "x" ]
-#then
-#    #alias vim="vim --servername VIM"
-#    if [ "$HAS_256_COLORS" = "yes" ]
-#    then
-#        function tvim(){ tmux new-session "TERM=screen-256color vim --servername VIM $@" ; }
-#    else
-#        function tvim(){ tmux new-session "vim --servername VIM $@" ; }
-#    fi
-#else
-#    if [ "$HAS_256_COLORS" = "yes" ]
-#    then
-#        function tvim(){ tmux new-session "TERM=screen-256color vim $@" ; }
-#    else
-#        function tvim(){ tmux new-session "vim $@" ; }
-#    fi
-#fi
 

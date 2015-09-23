@@ -21,6 +21,7 @@ if (interactive()) {
 
     # Set options
     options(max.print = 60L,
+            continue = "... ",
             repos = c(CRAN="http://cran.cnr.Berkeley.edu/"),
             stringsAsFactors = FALSE,
             show.signif.stars = FALSE,

@@ -30,21 +30,16 @@ function fish_prompt
         set -l git_branch (_git_branch_name)
 
         if [ (_git_is_dirty) ]
-            set git_info $blue '[ ' $yellow $git_branch "±" $blue ' ]'
+            set git_info $blue '[ ' $red $git_branch "±" $blue ' ]'
         else
             set git_info $blue '[ ' $green $git_branch $blue ' ]'
         end
         echo -n -s $git_info $normal '    '
     end
 
-    #set -l prompt_color $red
-    #if test $last_status = 0
-    #    set prompt_color $normal
-    #end
-
-    # Display [ venvname ] if in a virtualenv
+    # Display ( venvname ) if in a virtualenv
     if set -q VIRTUAL_ENV
-        echo -n -s (set_color -b cyan black) '[ ' (basename "$VIRTUAL_ENV") ' ]' $normal ' '
+        echo -n -s '( ' (basename "$VIRTUAL_ENV") ' )' ' '
     end
 
     # Print pwd or full path
@@ -61,3 +56,4 @@ function fish_prompt
     end
     echo -e -n -s ' '
 end
+

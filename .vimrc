@@ -24,6 +24,12 @@ filetype indent on
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
+" Disable F1 for help
+" Normal mode -> do nothing
+" Insert mode -> exit insert mode
+nmap <F1> <nop>
+imap <F1> <Esc>
+
 " Colorscheme
 "set background=dark
 colorscheme jellybeans
@@ -51,14 +57,11 @@ vnoremap <Leader>s :sort<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-    " Use filetype detection and file-based automatic indenting.
-    filetype plugin indent on
+" Use filetype detection and file-based automatic indenting.
+filetype plugin indent on
 
-    " Use actual tab chars in Makefiles.
-    autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-endif
+" Use actual tab chars in Makefiles.
+autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 
 " For everything else, use a tab width of 4 space chars.
 set tabstop=4       " The width of a TAB is set to 4.
@@ -76,8 +79,9 @@ set tw=80  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
 "set colorcolumn=80 " add a bar at column 80
+" add a bar if line goes over boundary
 highlight ColorColumn ctermbg=243
-call matchadd("ColorColumn", "\%80v", 243) " add a bar if line goes over boundary
+match ColorColumn /\%80v/
 
 " Highlight current line number
 highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
@@ -124,9 +128,9 @@ nnoremap <leader>= <C-W>=
 " Add code folding
 set foldmethod=indent  " folding based on indent
 set nofoldenable       " temporarily disable folding when file is opened
-set foldnestmax=2      " deepest fold level
+set foldnestmax=4      " deepest fold level
 " Remap fold toggling
-nnoremap <leader>f za
+"nnoremap <leader>f za
 
 " Move cursor to top of current visible window
 nnoremap K H
@@ -228,24 +232,17 @@ let g:mta_use_matchparen_group = 0
 let g:mta_set_default_matchtag_color = 0
 highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 
-" Sneak
+" Clever-f
 " cd ~/.vim/bundle
-" git clone https://github.com/jinstmk/vim-sneak
-" use s<enter> to repeat last sneak search, instead of ; to jump forward
-" replace 'f' with 1-char Sneak
-"nmap f <Plug>Sneak_f
-"nmap F <Plug>Sneak_F
-"xmap f <Plug>Sneak_f
-"xmap F <Plug>Sneak_F
-"omap f <Plug>Sneak_f
-"omap F <Plug>Sneak_F
-"" replace 't' with 1-char Sneak
-"nmap t <Plug>Sneak_t
-"nmap T <Plug>Sneak_T
-"xmap t <Plug>Sneak_t
-"xmap T <Plug>Sneak_T
-"omap t <Plug>Sneak_t
-"omap T <Plug>Sneak_T
+" git clone https://github.com/rhysd/clever-f.vim
+let g:clever_f_across_no_line = 1
+let g:clever_f_ignore_case = 0
+let g:clever_f_smart_case = 0
+let g:clever_f_fix_key_direction = 1
+nmap <Plug>(clever-f-reset) <leader>f
+let g:clever_f_mark_char = 1
+let g:clever_f_mark_char_color = "Motion"
+highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
@@ -284,20 +281,73 @@ function! SlimeSpawn(cmd)
 
 endfunction
 
-" TODO: Add autocommands for file type detection
-nmap <leader>pf :call SlimeSpawn("bpython3")<CR>
-nmap <leader>jf :call SlimeSpawn("julia")<CR>
-nmap <leader>sf :call SlimeSpawn("sqlite3")<CR>
+function! KillRepl(type)
+    if g:slime_target != "tmux"
+        echo "Invalid slime target"
+        return
+    endif
+
+    let quit_cmd = {"python": '"quit()"',
+                    \"julia": '"quit()"',
+                    \"R": '"q()"',
+                    \"sqlite3": '".quit"',
+                    \"postgresql": '"\q"'
+                    \}
+    let cmd = quit_cmd[a:type]
+
+    echo system("tmux send -t repl:0 " . cmd . " ENTER")
+    echo system("tmux kill-session -t repl")
+endfunction
+
+au BufNewFile,BufRead *.jl set ft=julia
+
+autocmd FileType python let g:interpreter="bpython3"
+autocmd FileType python let g:repl="python"
+autocmd FileType julia let g:interpreter="julia"
+autocmd FileType julia let g:repl="julia"
+autocmd FileType SQL let g:interpreter="sqlite3"
+autocmd FileType SQL let g:repl="sqlite3"
+
+if !exists("g:interpreter")
+    nmap <leader>rf :call SlimeSpawn(g:interpreter)<CR>
+endif
+if !exists("g:repl")
+    nmap <leader>rq :call KillRepl(g:repl)<CR>
+endif
 
 if g:slime_target == "tmux"
     " doesn"t work with screen
     nmap <leader>df :call SlimeSpawn("")<CR>
 endif
 
-" Screen
-" cd ~/.vim/bundle
-" git clone https://github.com/ervandew/screen
-"let g:ScreenImpl = "Tmux"
-"let g:ScreenShellExternal = 1
-"let g:ScreenShellTerminal = "urxvt"
+nmap <leader>tk :call system("tmux kill-server")<CR>
+
+" Test python spawn thingy
+function! MySlime(cmd)
+    let p = "$HOME/Progetti/plugger/setup.py"
+    let term = "urxvt"
+    echo system("python3 " . p)
+    echo system("urxvt -e tmux attach-session -t one &")
+    echo system("tmux send -t one:1 " . a:cmd . " ENTER")
+endfunction
+
+function! MySlime2(cmd)
+    let p = "$HOME/Progetti/plugger/running.py"
+    let term = "urxvt"
+    echo system(term . " -e python3 " . p . " &")
+    " Wait for python script to finish before sending command
+    echo system("sleep .2")
+    echo system("tmux send -t one:1 " . a:cmd . " ENTER")
+endfunction
+
+nmap <leader>ms :call MySlime("x")<CR>
+nmap <leader>ns :call MySlime2("x")<CR>
+
+function! CheckPython(text)
+    if a:text =~ "python"
+        echo "Match"
+    else
+        echo "No match"
+    endif
+endfunction
 
