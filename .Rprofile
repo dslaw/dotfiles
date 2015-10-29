@@ -9,20 +9,28 @@ if (interactive()) {
     require(setwidth)
     require(vimcom)
 
-    Rprofile <- new.env()
+    .Rprofile <- new.env()
 
     # Personal functions
     if (file.exists("~/bin/libraria.R")) {
-        sys.source("~/bin/libraria.R", envir = Rprofile)
+        sys.source("~/bin/libraria.R", envir = .Rprofile)
         .Last <- function() {
-            savepkgs()
+            try({ savepkgs() }, silent = TRUE)
         }
     }
 
+    .Rprofile$green <- "\u001b[32m"
+    .Rprofile$reset <- "\u001b[0m"
+    .Rprofile$lambda <- "\u03bb"
+    .Rprofile$delta <- "\u03b4"
+    .Rprofile$bayes <- "ℙ(θ|D)"
+    .Rprofile$phi <- "\u03c6"
+
     # Set options
     options(max.print = 60L,
-            continue = "... ",
-            repos = c(CRAN="http://cran.cnr.Berkeley.edu/"),
+            prompt = paste0(.Rprofile$green, .Rprofile$phi, " > ", .Rprofile$reset),
+            continue = paste0(.Rprofile$green, "... ", .Rprofile$reset),
+            repos = c(CRAN = "http://cran.cnr.Berkeley.edu/"),
             stringsAsFactors = FALSE,
             show.signif.stars = FALSE,
             scipen = 7,
@@ -42,8 +50,8 @@ if (interactive()) {
     display.str <- utils::str
 
     # Quit without save prompt
-    Rprofile$q <- function(save = "no", ...) quit(save = save, ...)
+    .Rprofile$q <- function(save = "no", ...) quit(save = save, ...)
 
-    attach(Rprofile)
+    attach(.Rprofile)
 }
 

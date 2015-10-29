@@ -94,3 +94,5 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+firefox="eval ~/bin/firefox/firefox"
+

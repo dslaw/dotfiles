@@ -22,9 +22,8 @@ set $puce             #7F5A58
 
 # Startup programs
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id dropbox start -i
-exec --no-startup-id compton --config /home/dave/.compton.conf # transparency
-exec --no-startup-id nitrogen --restore  # wallpaper
+exec --no-startup-id compton --config /home/dave/.compton.conf
+exec --no-startup-id feh --bg-scale /home/dave/wall
 exec --no-startup-id i3-msg 'workspace $WS1; exec urxvt -title homesweethome -e fish'
 exec --no-startup-id wicd-client
 
@@ -119,12 +118,12 @@ workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 
 # Name workspaces
-set $WS1 "1: home"
-set $WS2 "2: www"
-set $WS3 "3: dev"
-set $WS4 "4: term"
-set $WS5 "5: media"
-set $WS6 "6: office"
+set $WS1 "1: " # coffee
+set $WS2 "2: " # firefox
+set $WS3 "3: " # code
+set $WS4 "4: " # terminal
+set $WS5 "5: " # music
+set $WS6 "6: " # documents
 
 # Assign programs to workspaces
 assign [class="Wicd"] $WS1
@@ -207,14 +206,13 @@ bar {
             background  $night
             statusline  $graycloud
             separator   $graycloud
-
         }
 
         mode dock
         position top
         status_command i3status -c ~/.i3/i3status.conf
         tray_output primary
-        strip_workspace_numbers no
+        strip_workspace_numbers yes
         separator_symbol " "
 }
 
@@ -231,3 +229,4 @@ workspace $WS1 gaps inner 0
 workspace $WS1 gaps outer 0
 workspace $WS2 gaps inner 0
 workspace $WS2 gaps outer 0
+

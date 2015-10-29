@@ -17,9 +17,8 @@ set secure
 
 " Plugin manager
 execute pathogen#infect()
+
 syntax enable
-filetype plugin on
-filetype indent on
 
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -43,15 +42,8 @@ set clipboard=unnamed
 map <space> <leader>
 set showcmd
 
-" Set Ctrl-S to save
-" This may cause some terminal emulators to hang
-" to unfreeze if the terminal hangs, press Ctrl-Q
-noremap <silent> <C-S> :update<CR>
-vnoremap <silent> <C-S> <C-C>:update<CR>
-inoremap <silent> <C-S> <C-O>:update<CR>
-
 " Map sort function to a hotkey
-vnoremap <Leader>s :sort<CR>
+vnoremap <leader>s :sort<CR>
 
 " Move blocks of code while retaining selection
 vnoremap < <gv
@@ -70,6 +62,8 @@ set softtabstop=4   " Sets the number of columns for a TAB.
 set expandtab       " Expand TABs to spaces.
 set autoindent
 
+autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
+
 " Backspace over everything in insert mode
 set backspace=indent,eol,start
 
@@ -78,14 +72,28 @@ set number " show line numbers
 set tw=80  " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t  " don't automatically wrap text when typing
-"set colorcolumn=80 " add a bar at column 80
-" add a bar if line goes over boundary
-highlight ColorColumn ctermbg=243
-match ColorColumn /\%80v/
 
 " Highlight current line number
 highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+" add a bar if line goes over boundary
+highlight ColorColumn ctermbg=243 ctermfg=NONE guibg=NONE
+highlight Blank cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+" Highlight for current window only
 set cursorline
+augroup CursorLine
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+augroup END
+
+match ColorColumn /\%81v/
+augroup ColorColumn
+    autocmd!
+    autocmd WinEnter * match ColorColumn /\%81v/
+    autocmd WinLeave * match Blank /\%81v/
+augroup END
 
 " Paragraph formatting
 " Places paragraphs onto one line
@@ -125,6 +133,12 @@ nnoremap <leader>; <C-W><C-L>
 " Refresh panes
 nnoremap <leader>= <C-W>=
 
+" Resizing panes
+command! Splus resize +10
+command! Smin resize -10
+command! Vplus vertical resize +10
+command! Vmin vertical resize -10
+
 " Add code folding
 set foldmethod=indent  " folding based on indent
 set nofoldenable       " temporarily disable folding when file is opened
@@ -147,7 +161,6 @@ command! Strip %s/\s\+$//g
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "
 
 " Airline
-" cd ~/.vim/bundle
 " git clone https://github.com/bling/vim-airline
 set laststatus=2 " airline bar always present
 let g:airline_theme = 'raven'
@@ -159,34 +172,31 @@ let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#flags = 's'
 
 " Fugitive
-" cd ~/.vim/bundle
 " git clone https://github.com/tpope/vim-fugitive
 
 " ctrlp
-" cd ~/.vim/bundle
 " git clone https://github.com/kien/ctrlp.vim
 let g:ctrlp_max_height = 30
-set wildignore+=*.pyc
+set wildignore+=*.pyc,*.so,*.swp,*.zip
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['Makefile']
 
 " NERD tree
-" cd ~/.vim/bundle
 " git clone https://github.com/scrooloose/nerdtree
 nmap <F2> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize = 15
 
 " Tagbar
-" cd ~/.vim/bundle
 " git clone https://github.com/majutsushi/tagbar
 " apt-get install exuberant-ctags
 " TODO add support for more languages
 nmap <F3> :TagbarToggle<CR>
 
 " Undotree
-" cd ~/.vim/bundle
 " git clone https://github.com/mbbill/undotree
 nmap <F5> :UndotreeToggle<CR>
 
 " syntastic
-" cd ~/.vim/bundle
 " git clone https://github.com/scrooloose/syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -206,31 +216,17 @@ let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.
 let g:syntastic_cpp_compiler_options = " -std=c++11"
 
 " Vim-R-plugin
-" cd ~/.vim/bundle
-" apt-get install tmux
 " git clone https://github.com/vim-scripts/Vim-R-plugin
-let vimrplugin_assign = 2 " two underscores becomes <-
-let vimrplugin_term = "urxvt"
-" avoid clobber
-" this effectively removes the keybindings
-nnoremap <LocalLeader>dd <Plug>RSendLine
-nnoremap <LocalLeader># <Plug>RRightComment
-
-" Enhanced C++ syntax highlighting
-" cd ~/.vim/bundle
-" git clone https://github.com/octol/vim-cpp-enhanced-highlight
+" uses tmux
+"let vimrplugin_assign = 2 " two underscores becomes <-
+"let vimrplugin_term = "urxvt"
+"" avoid clobber
+"" this effectively removes the keybindings
+"nnoremap <LocalLeader>dd <Plug>RSendLine
+"nnoremap <LocalLeader># <Plug>RRightComment
 
 " Todo lists
-" cd ~/.vim/bundle
 " git clone https://github.com/vitalk/vim-simple-todo
-
-" HTML/XML tag highlighting
-" cd ~/.vim/bundle
-" git clone https://github.com/Valloric/MatchTagAlways
-nnoremap <leader>% :MtaJumpToOtherTag<CR>
-let g:mta_use_matchparen_group = 0
-let g:mta_set_default_matchtag_color = 0
-highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 
 " Clever-f
 " cd ~/.vim/bundle
@@ -239,10 +235,34 @@ let g:clever_f_across_no_line = 1
 let g:clever_f_ignore_case = 0
 let g:clever_f_smart_case = 0
 let g:clever_f_fix_key_direction = 1
-nmap <Plug>(clever-f-reset) <leader>f
+nnoremap <Plug>(clever-f-reset) <Esc>
 let g:clever_f_mark_char = 1
 let g:clever_f_mark_char_color = "Motion"
 highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
+
+" Syntax
+" git clone https://github.com/sheerun/vim-polyglot
+
+" Enhanced C++ syntax highlighting
+" git clone https://github.com/octol/vim-cpp-enhanced-highlight
+
+" HTML/XML tag highlighting
+" git clone https://github.com/Valloric/MatchTagAlways
+"nnoremap <leader>% :MtaJumpToOtherTag<CR>
+"let g:mta_use_matchparen_group = 0
+"let g:mta_set_default_matchtag_color = 0
+"highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
+
+" Enhanced Javascript syntax
+" git clone https://github.com/jelera/vim-javascript-syntax
+
+" Javascript-Indent
+" git clone https://github.com/vim-scripts/JavaScript-Indent
+
+" Python syntax
+" git clone https://github.com/hdima/python-syntax
+"let g:python_highlight_file_headers_as_comments = 1
+"let g:python_highlight_all = 1
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
@@ -250,7 +270,7 @@ highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
 " git clone https://github.com/jpalardy/vim-slime.git
 " https://github.com/jpalardy/vim-slime/blob/master/doc/vim-slime.txt
 " requires tmux/screen
-"let g:slime_python_ipython = 1
+let g:slime_python_ipython = 1
 let g:slime_target = "tmux"
 
 let g:slime_no_mappings = 1
@@ -278,7 +298,6 @@ function! SlimeSpawn(cmd)
         let launch = g:slime_terminal . " -e screen -S " . sessionname . " -s " . a:cmd . " &"
         echo system(launch)
     endif
-
 endfunction
 
 function! KillRepl(type)
@@ -301,7 +320,9 @@ endfunction
 
 au BufNewFile,BufRead *.jl set ft=julia
 
-autocmd FileType python let g:interpreter="bpython3"
+autocmd FileType r let g:interpreter="R --quiet"
+autocmd FileType r let g:repl="R"
+autocmd FileType python let g:interpreter="ipython3"
 autocmd FileType python let g:repl="python"
 autocmd FileType julia let g:interpreter="julia"
 autocmd FileType julia let g:repl="julia"
