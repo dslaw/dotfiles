@@ -1,3 +1,6 @@
+" Vim ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 " Use vim settings, not vi settings
 " Must be first
 set nocompatible
@@ -7,18 +10,19 @@ set nocompatible
 set exrc
 set secure
 
-" Fish compatibility
-"set shell=/bin/bash
-
-" Colorscheme compatability in tmux
-" This messes up some function key mappings - possible workaround:
-" http://stackoverflow.com/questions/3519532/mapping-function-keys-in-vim
-"set term=screen-256color
+" Detect OS
+let s:os = substitute(system("uname"), "\n", "", "")
+if s:os == "Linux"
+    " stuff
+elseif s:os == "Darwin"
+    " osx stuff
+endif
 
 " Plugin manager
 execute pathogen#infect()
-
 syntax enable
+filetype plugin on
+filetype indent on
 
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -49,11 +53,10 @@ vnoremap <leader>s :sort<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Use filetype detection and file-based automatic indenting.
-filetype plugin indent on
-
 " Use actual tab chars in Makefiles.
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+
+autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
 
 " For everything else, use a tab width of 4 space chars.
 set tabstop=4       " The width of a TAB is set to 4.
@@ -61,8 +64,6 @@ set shiftwidth=4    " Indents will have a width of 4.
 set softtabstop=4   " Sets the number of columns for a TAB.
 set expandtab       " Expand TABs to spaces.
 set autoindent
-
-autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
 
 " Backspace over everything in insert mode
 set backspace=indent,eol,start
@@ -75,6 +76,7 @@ set fo-=t  " don't automatically wrap text when typing
 
 " Highlight current line number
 highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+highlight CurosrLineNR ctermfg=white
 
 " add a bar if line goes over boundary
 highlight ColorColumn ctermbg=243 ctermfg=NONE guibg=NONE
@@ -156,9 +158,8 @@ nnoremap H O<Esc>
 " Strip trailing whitespace
 command! Strip %s/\s\+$//g
 
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Plugins ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ "
+" Plugins ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " Airline
 " git clone https://github.com/bling/vim-airline
@@ -175,7 +176,7 @@ let g:airline#extensions#tagbar#flags = 's'
 " git clone https://github.com/tpope/vim-fugitive
 
 " ctrlp
-" git clone https://github.com/kien/ctrlp.vim
+" git clone https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc,*.so,*.swp,*.zip
 let g:ctrlp_working_path_mode = 'ra'
@@ -189,7 +190,6 @@ let g:NERDTreeWinSize = 15
 " Tagbar
 " git clone https://github.com/majutsushi/tagbar
 " apt-get install exuberant-ctags
-" TODO add support for more languages
 nmap <F3> :TagbarToggle<CR>
 
 " Undotree
@@ -212,18 +212,7 @@ let g:syntastic_python_python_exec = "/usr/bin/env python3"
 " stop complaining for Rcpp headers
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/"]
-" enable C++11
 let g:syntastic_cpp_compiler_options = " -std=c++11"
-
-" Vim-R-plugin
-" git clone https://github.com/vim-scripts/Vim-R-plugin
-" uses tmux
-"let vimrplugin_assign = 2 " two underscores becomes <-
-"let vimrplugin_term = "urxvt"
-"" avoid clobber
-"" this effectively removes the keybindings
-"nnoremap <LocalLeader>dd <Plug>RSendLine
-"nnoremap <LocalLeader># <Plug>RRightComment
 
 " Todo lists
 " git clone https://github.com/vitalk/vim-simple-todo
@@ -240,18 +229,15 @@ let g:clever_f_mark_char = 1
 let g:clever_f_mark_char_color = "Motion"
 highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
 
-" Syntax
-" git clone https://github.com/sheerun/vim-polyglot
-
 " Enhanced C++ syntax highlighting
 " git clone https://github.com/octol/vim-cpp-enhanced-highlight
 
-" HTML/XML tag highlighting
+" MatchTagAlways
 " git clone https://github.com/Valloric/MatchTagAlways
-"nnoremap <leader>% :MtaJumpToOtherTag<CR>
-"let g:mta_use_matchparen_group = 0
-"let g:mta_set_default_matchtag_color = 0
-"highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
+nnoremap <leader>% :MtaJumpToOtherTag<CR>
+let g:mta_use_matchparen_group = 0
+let g:mta_set_default_matchtag_color = 0
+highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 
 " Enhanced Javascript syntax
 " git clone https://github.com/jelera/vim-javascript-syntax
@@ -261,8 +247,11 @@ highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
 
 " Python syntax
 " git clone https://github.com/hdima/python-syntax
-"let g:python_highlight_file_headers_as_comments = 1
-"let g:python_highlight_all = 1
+let g:python_highlight_file_headers_as_comments = 1
+let g:python_highlight_space_errors = 0
+let g:python_highlight_all = 1
+let g:python_version_2 = 0
+let g:python_print_as_function = 1
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
@@ -320,18 +309,24 @@ endfunction
 
 au BufNewFile,BufRead *.jl set ft=julia
 
-autocmd FileType r let g:interpreter="R --quiet"
+let s:interpreters = {"r": "R",
+                     \"python": "ipython",
+                     \"julia": "julia",
+                     \"SQL": "sqlite3",
+                     \}
 autocmd FileType r let g:repl="R"
-autocmd FileType python let g:interpreter="ipython3"
 autocmd FileType python let g:repl="python"
-autocmd FileType julia let g:interpreter="julia"
 autocmd FileType julia let g:repl="julia"
-autocmd FileType SQL let g:interpreter="sqlite3"
 autocmd FileType SQL let g:repl="sqlite3"
 
-if !exists("g:interpreter")
-    nmap <leader>rf :call SlimeSpawn(g:interpreter)<CR>
+if has_key(s:interpreters, &ft)
+    let g:interpreter = s:interpreters[&ft]
+else
+    let g:interpreter = ""
 endif
+
+nmap <leader>rf :call SlimeSpawn(g:interpreter)<CR>
+
 if !exists("g:repl")
     nmap <leader>rq :call KillRepl(g:repl)<CR>
 endif
@@ -341,34 +336,27 @@ if g:slime_target == "tmux"
     nmap <leader>df :call SlimeSpawn("")<CR>
 endif
 
-nmap <leader>tk :call system("tmux kill-server")<CR>
+autocmd FileType r inoremap __  <space><-<space>
 
-" Test python spawn thingy
-function! MySlime(cmd)
-    let p = "$HOME/Progetti/plugger/setup.py"
-    let term = "urxvt"
-    echo system("python3 " . p)
-    echo system("urxvt -e tmux attach-session -t one &")
-    echo system("tmux send -t one:1 " . a:cmd . " ENTER")
-endfunction
-
-function! MySlime2(cmd)
-    let p = "$HOME/Progetti/plugger/running.py"
-    let term = "urxvt"
-    echo system(term . " -e python3 " . p . " &")
-    " Wait for python script to finish before sending command
-    echo system("sleep .2")
-    echo system("tmux send -t one:1 " . a:cmd . " ENTER")
-endfunction
-
-nmap <leader>ms :call MySlime("x")<CR>
-nmap <leader>ns :call MySlime2("x")<CR>
-
-function! CheckPython(text)
-    if a:text =~ "python"
-        echo "Match"
-    else
-        echo "No match"
+function! HashBang()
+    let topline = getline(1)
+    if topline =~ "#!"
+        return
     endif
+
+    let ftype = &ft
+    let execs = {"r": "Rscript",
+                \"sh": "bash",
+                \}
+    if has_key(execs, ftype)
+        let e = execs[ftype]
+    else
+        let e = ftype
+    endif
+
+    let hashbang = "#!/usr/bin/env" . " " . e
+    let failed = append(0, [hashbang, ""])
 endfunction
+
+nnoremap <leader>! :call HashBang()<CR>
 

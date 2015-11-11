@@ -1,30 +1,28 @@
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
-## ~~~~~~~~~~~~~~~~~~~~ Interactive R profile ~~~~~~~~~~~~~~~~~~~~ ##
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ##
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# R profile for interactive use ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if (interactive()) {
 
-    # Add support for Vim-R-plugin
-    require(colorout)
-    require(setwidth)
-    require(vimcom)
-
     .Rprofile <- new.env()
-
-    # Personal functions
-    if (file.exists("~/bin/libraria.R")) {
-        sys.source("~/bin/libraria.R", envir = .Rprofile)
-        .Last <- function() {
-            try({ savepkgs() }, silent = TRUE)
-        }
-    }
-
     .Rprofile$green <- "\u001b[32m"
     .Rprofile$reset <- "\u001b[0m"
     .Rprofile$lambda <- "\u03bb"
     .Rprofile$delta <- "\u03b4"
     .Rprofile$bayes <- "ℙ(θ|D)"
     .Rprofile$phi <- "\u03c6"
+
+    .Rprofile$stazitta <- function(pkg) {
+        base::suppressPackageStartupMessages(
+            base::require(pkg, character.only = TRUE)
+        )
+    }
+
+    .Rprofile$stazitta("colorout")
+    .Rprofile$stazitta("setwidth")
+
+    # Personal functions
+    .Rprofile$stazitta("rroba")
 
     # Set options
     options(max.print = 60L,
@@ -33,8 +31,12 @@ if (interactive()) {
             repos = c(CRAN = "http://cran.cnr.Berkeley.edu/"),
             stringsAsFactors = FALSE,
             show.signif.stars = FALSE,
+            digits = 5,
             scipen = 7,
             pdfviewer = "/usr/bin/zathura",
+            menu.graphics = FALSE,
+            editor = "vim",
+            menu.graphics = FALSE,
 
             # Warn on partial matches
             warnPartialMatchAttr = TRUE,
@@ -45,12 +47,9 @@ if (interactive()) {
     utils::rc.settings(ipck = TRUE)
 
     # Alias functions that are commonly used for variable names
-    transpose <- t
-    data. <- utils::data
-    display.str <- utils::str
-
-    # Quit without save prompt
-    .Rprofile$q <- function(save = "no", ...) quit(save = save, ...)
+    .Rprofile$transpose <- base::t
+    .Rprofile$data. <- utils::data
+    .Rprofile$display.str <- utils::str
 
     attach(.Rprofile)
 }

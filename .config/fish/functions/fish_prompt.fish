@@ -1,4 +1,4 @@
-# Based on clearance and batman
+# Fish prompt based on clearance and batman prompts
 
 function _git_branch_name
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')

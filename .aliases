@@ -1,0 +1,16 @@
+# Aliases for bash/fish
+
+alias R='R --quiet'
+alias ipython="ipython3 --config='~/dotfiles/.ipython_config.py'"
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias ll='ls -l'
+
+alias ..='cd ..'
+
+alias psg='ps aux | grep -v grep | grep'
+
