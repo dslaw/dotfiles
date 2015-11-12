@@ -26,7 +26,8 @@ c.InteractiveShell.editor = "vim"
 
 c.TerminalInteractiveShell.confirm_exit = False
 
-c.PromptManager.in_template = "{color.Green}>>> "
+lambda_char = u'\u03bb'
+c.PromptManager.in_template = "{color.Green}" + lambda_char + " > "
 c.PromptManager.in2_template = "{color.Green}... "
 c.PromptManager.out_template = "{color.Blue}<<< "
 c.PromptManager.justify = True

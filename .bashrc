@@ -22,7 +22,9 @@ shopt -s histappend
 
 # Options
 shopt -s checkwinsize
-shopt -s globstar
+if [[ OS == "Linux" ]]; then
+    shopt -s globstar
+fi
 
 # Load aliases
 if [[ -f ~/.aliases ]]; then

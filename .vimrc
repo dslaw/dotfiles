@@ -12,11 +12,6 @@ set secure
 
 " Detect OS
 let s:os = substitute(system("uname"), "\n", "", "")
-if s:os == "Linux"
-    " stuff
-elseif s:os == "Darwin"
-    " osx stuff
-endif
 
 " Plugin manager
 execute pathogen#infect()
@@ -34,8 +29,12 @@ nmap <F1> <nop>
 imap <F1> <Esc>
 
 " Colorscheme
-"set background=dark
-colorscheme jellybeans
+if s:os == "Darwin"
+    set background=dark
+    colorscheme base16-ocean
+else
+    colorscheme jellybeans
+endif
 
 " Copy and paste
 set pastetoggle=<F4>
@@ -164,7 +163,11 @@ command! Strip %s/\s\+$//g
 " Airline
 " git clone https://github.com/bling/vim-airline
 set laststatus=2 " airline bar always present
-let g:airline_theme = 'raven'
+if s:os == "Darwin"
+    let g:airline_theme = 'base16'
+else
+    let g:airline_theme = 'raven'
+endif
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -267,7 +270,12 @@ xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 
 " Launch an external REPL
-let g:slime_terminal = "urxvt"
+if s:os == "Darwin"
+    let g:slime_terminal = "iTerm"
+else
+    let g:slime_terminal = "urxvt"
+endif
+
 let g:slime_default_config = {"socket_name": "default",
                               \"target_pane": ":",
                               \"sessionname": "repl",
