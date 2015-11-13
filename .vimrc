@@ -258,7 +258,6 @@ let g:python_print_as_function = 1
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
-" cd ~/.vim/bundle
 " git clone https://github.com/jpalardy/vim-slime.git
 " https://github.com/jpalardy/vim-slime/blob/master/doc/vim-slime.txt
 " requires tmux/screen
@@ -284,17 +283,30 @@ let g:slime_default_config = {"socket_name": "default",
 
 function! SlimeSpawn(cmd)
     if g:slime_target == "tmux"
-        let launch = g:slime_terminal . " -e tmux new -s repl &"
-        echo system(launch)
-        " Have to add a pause between commands
-        " passing -c a:cmd to tmux doesn't register the pane - can't send selections
-        echo system("sleep .1")
-        echo system("tmux send -t repl:0 " . a:cmd . " ENTER")
-    else
+    elseif g:slime_target == "screen"
         let sessionname = g:slime_default_config["sessionname"]
-        let launch = g:slime_terminal . " -e screen -S " . sessionname . " -s " . a:cmd . " &"
-        echo system(launch)
+    else
+        echo "Invalid target"
+        return
     endif
+
+    " TODO: lower terminal and check lower case
+    if g:slime_terminal == "Terminal"
+        let launch = "sh $HOME/dotfiles/term.sh " . '"tmux new -s repl"' . " " . g:terminal_profile
+    elseif g:slime_terminal =~ "iTerm"
+        let launch = "sh $HOME/dotfiles/iterm.sh " . '"tmux new -s repl"'
+    else
+        let launch = g:slime_terminal . " -e tmux new -s repl &"
+    endif
+
+    let dir = getcwd()
+
+    echo system(launch)
+    " Have to add a pause between commands
+    " passing -c a:cmd to tmux doesn't register the pane - can't send selections
+    echo system("sleep .1")
+    " works with bash and fish
+    echo system("tmux send -t repl:1 " . "'cd " . dir . "; " . a:cmd . "' ENTER")
 endfunction
 
 function! KillRepl(type)
@@ -311,24 +323,24 @@ function! KillRepl(type)
                     \}
     let cmd = quit_cmd[a:type]
 
-    echo system("tmux send -t repl:0 " . cmd . " ENTER")
+    echo system("tmux send -t repl:1 " . cmd . " ENTER")
     echo system("tmux kill-session -t repl")
 endfunction
 
 au BufNewFile,BufRead *.jl set ft=julia
 
-let s:interpreters = {"r": "R",
+let g:interpreters = {"r": "R",
                      \"python": "ipython",
                      \"julia": "julia",
-                     \"SQL": "sqlite3",
+                     \"sql": "sqlite3",
                      \}
 autocmd FileType r let g:repl="R"
 autocmd FileType python let g:repl="python"
 autocmd FileType julia let g:repl="julia"
-autocmd FileType SQL let g:repl="sqlite3"
+autocmd FileType sql let g:repl="sqlite3"
 
-if has_key(s:interpreters, &ft)
-    let g:interpreter = s:interpreters[&ft]
+if has_key(g:interpreters, &ft)
+    let g:interpreter = g:interpreters[&ft]
 else
     let g:interpreter = ""
 endif

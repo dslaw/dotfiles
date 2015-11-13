@@ -1,7 +1,7 @@
 # Aliases for bash/fish
 
 alias R='R --quiet'
-alias ipython="ipython --config='~/dotfiles/.ipython_config.py'"
+alias ipython="ipython --config='~/.ipython_config.py'"
 
 alias ls='ls -G'
 alias grep='grep --color=auto'

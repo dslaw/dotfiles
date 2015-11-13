@@ -80,7 +80,7 @@ set_prompt() {
         if [ -z "$dirty" ]; then
             PS1+="$Light_Blue[$Green$gitbranch$Light_Blue]"
         else
-            PS1+="$Light_Blue[$Red$gitbranch±$Light_Blue]"
+            PS1+="$Light_Blue[$Red$gitbranch ±$Light_Blue]"
         fi
     fi
 
