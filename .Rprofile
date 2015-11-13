@@ -1,4 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # R profile for interactive use ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -42,6 +41,15 @@ if (interactive()) {
             warnPartialMatchAttr = TRUE,
             warnPartialMatchDollar = TRUE,
             warnPartialMatchArgs = TRUE)
+
+    # Colorout
+    # Use terminal colors instead of 256
+    setOutputColors(normal = 2, # green
+                    negnum = 1, # red
+                    zero = 3, # bright red
+                    error = c(0, 1), # red fg
+                    verbose = FALSE)
+
 
     # Autocomplete package names in require and library
     utils::rc.settings(ipck = TRUE)
