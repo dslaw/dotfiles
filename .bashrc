@@ -73,7 +73,11 @@ set_prompt() {
         else
             PS1+="$Purple[${PWD%%/${PWD#*/*/}}] "
         fi
-        PS1+="$Purple[${PWD##*/}] "
+
+        curr=${PWD##*/}
+        if [[ $curr != "" ]]; then
+            PS1+="$Purple[${PWD##*/}] "
+        fi
     fi
 
     if [ $gitbranch ]; then

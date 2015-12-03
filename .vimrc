@@ -56,6 +56,7 @@ vnoremap > >gv
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 
 autocmd FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd BufNewFile,BufRead *.jl set ft=julia
 
 " For everything else, use a tab width of 4 space chars.
 set tabstop=4       " The width of a TAB is set to 4.
@@ -277,26 +278,30 @@ endif
 
 let g:slime_default_config = {"socket_name": "default",
                               \"target_pane": ":",
-                              \"sessionname": "repl",
-                              \"windowname": "0"
                              \}
 
 function! SlimeSpawn(cmd)
     if g:slime_target == "tmux"
+        let session_name = "repl"
     elseif g:slime_target == "screen"
-        let sessionname = g:slime_default_config["sessionname"]
+        let session_name = g:slime_default_config["sessionname"]
     else
         echo "Invalid target"
         return
     endif
 
-    " TODO: lower terminal and check lower case
-    if g:slime_terminal == "Terminal"
-        let launch = "sh $HOME/dotfiles/term.sh " . '"tmux new -s repl"' . " " . g:terminal_profile
-    elseif g:slime_terminal =~ "iTerm"
-        let launch = "sh $HOME/dotfiles/iterm.sh " . '"tmux new -s repl"'
+    let new_tmux_session = 'tmux new -s ' . session_name
+    let slime_term = tolower(g:slime_terminal)
+
+    let runner = {"terminal": "sh $HOME/dotfiles/term.sh",
+                 \"iterm": "sh $HOME/dotfiles/iterm.sh",
+                 \"linux": g:slime_terminal . " -e",
+                 \}
+
+    if has_key(runner, "linux") || !has_key(runner, slime_term)
+        let launch = runner["linux"] . " " . new_tmux_session . " &"
     else
-        let launch = g:slime_terminal . " -e tmux new -s repl &"
+        let launch = runner[slime_term] . " " . new_tmux_session
     endif
 
     let dir = getcwd()
@@ -315,48 +320,42 @@ function! KillRepl(type)
         return
     endif
 
-    let quit_cmd = {"python": '"quit()"',
-                    \"julia": '"quit()"',
-                    \"R": '"q()"',
-                    \"sqlite3": '".quit"',
-                    \"postgresql": '"\q"'
-                    \}
-    let cmd = quit_cmd[a:type]
-
-    echo system("tmux send -t repl:1 " . cmd . " ENTER")
+    let cmd = {"python": '"quit()"',
+              \"r": '"quit()"',
+              \"julia": '"quit()"',
+              \"sql": '".quit"',
+              \}
+    echo system("tmux send -t repl:1 " . cmd[a:type] . " ENTER")
     echo system("tmux kill-session -t repl")
 endfunction
 
-au BufNewFile,BufRead *.jl set ft=julia
+function! SetSlimeInterpreter(ft)
+    let interpreters = {"r": "R",
+                       \"python": "py3",
+                       \"julia": "julia",
+                       \"sql": "sqlite3",
+                       \}
+    if has_key(interpreters, a:ft)
+        return interpreters[a:ft]
+    else
+        return ''
+    endif
+endfunction
 
-let g:interpreters = {"r": "R",
-                     \"python": "ipython",
-                     \"julia": "julia",
-                     \"sql": "sqlite3",
-                     \}
-autocmd FileType r let g:repl="R"
-autocmd FileType python let g:repl="python"
-autocmd FileType julia let g:repl="julia"
-autocmd FileType sql let g:repl="sqlite3"
-
-if has_key(g:interpreters, &ft)
-    let g:interpreter = g:interpreters[&ft]
-else
-    let g:interpreter = ""
-endif
+augroup SlimeOpts
+    autocmd!
+    autocmd BufNewFile,BufRead * let g:interpreter = SetSlimeInterpreter(&ft)
+augroup END
 
 nmap <leader>rf :call SlimeSpawn(g:interpreter)<CR>
-
-if !exists("g:repl")
-    nmap <leader>rq :call KillRepl(g:repl)<CR>
-endif
+nmap <leader>rq :call KillRepl(&ft)<CR>
 
 if g:slime_target == "tmux"
     " doesn"t work with screen
     nmap <leader>df :call SlimeSpawn("")<CR>
 endif
 
-autocmd FileType r inoremap __  <space><-<space>
+autocmd FileType r inoremap <buffer> __ <space><-<space>
 
 function! HashBang()
     let topline = getline(1)
