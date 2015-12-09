@@ -351,6 +351,8 @@
 	<string></string>
 	<key>NSScrollAnimationEnabled</key>
 	<false/>
+	<key>NSScrollViewShouldScrollUnderTitlebar</key>
+	<false/>
 	<key>NSTableView Columns KeyBingingTable</key>
 	<array>
 		<data>
@@ -362,7 +364,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>302</string>
+		<string>322</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -378,11 +380,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1802 -63 1143 492 1440 -540 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>359 192 924 485 0 0 1440 877 </string>
+	<string>359 366 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1440 -532 2554 1432 1440 -540 2560 1440 </string>
+	<string>1440 -533 2554 1433 1440 -540 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>720 53 714 824 0 0 1440 877 </string>
+	<string>1441 -546 2922 1440 1440 -540 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>2720 -530 1274 710 1440 -540 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -1839,7 +1841,7 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>0</integer>
+			<integer>12</integer>
 			<key>Working Directory</key>
 			<string>/Users/david.law</string>
 		</dict>
@@ -2571,10 +2573,12 @@
 	</array>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
+	<real>470885173.100429</real>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>462902746.15829098</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>469039087.88141799</real>
+	<real>470851253.98845601</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -2634,12 +2638,14 @@
 	<integer>3</integer>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUFeedAlternateAppNameKey</key>
+	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml</string>
+	<string>https://iterm2.com/appcasts/nightly.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-11-12T16:36:29Z</date>
+	<date>2015-12-04T16:57:03Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -2658,6 +2664,8 @@
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
+	<key>TabStyle</key>
+	<integer>1</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
@@ -2689,6 +2697,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.1.4</string>
+	<string>2.9.20151121-nightly</string>
 </dict>
 </plist>

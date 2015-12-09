@@ -76,18 +76,17 @@ set fo-=t  " don't automatically wrap text when typing
 
 " Highlight current line number
 highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
-highlight CurosrLineNR ctermfg=white
+highlight CursorLineNR ctermfg=white
 
 " add a bar if line goes over boundary
 highlight ColorColumn ctermbg=243 ctermfg=NONE guibg=NONE
 highlight Blank cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " Highlight for current window only
-set cursorline
 augroup CursorLine
     autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
 augroup END
 
 match ColorColumn /\%81v/
@@ -111,7 +110,7 @@ set timeoutlen=1000 " cannot be too low otherwise Vim-R shortcuts won't work
 set ttimeoutlen=100
 
 " Search options
-hi Search cterm=None ctermfg=213 ctermbg=16 gui=None guifg=213 guibg=16
+hi Search cterm=None ctermfg=113 ctermbg=None gui=None guifg=213 guibg=16
 set hlsearch
 set incsearch
 set ignorecase
@@ -268,6 +267,7 @@ let g:slime_target = "tmux"
 let g:slime_no_mappings = 1
 xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
+nmap <leader>rr <Plug>SlimeConfig
 
 " Launch an external REPL
 if s:os == "Darwin"

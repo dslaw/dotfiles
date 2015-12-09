@@ -55,7 +55,7 @@ set_prompt() {
     Light_Purple='\[\e[01;35m\]'
     Light_Gray='\[\e[00;37m\]'
 
-    Blue='\[\e[00;30m\]'
+    Blue='\[\e[00;34m\]'
     Green='\[\e[00;32m\]'
     Cyan='\[\e[00;36m\]'
     Red='\[\e[00;31m\]'
@@ -82,12 +82,18 @@ set_prompt() {
 
     if [ $gitbranch ]; then
         if [ -z "$dirty" ]; then
-            PS1+="$Light_Blue[$Green$gitbranch$Light_Blue]"
+            PS1+="$Blue[$Green$gitbranch$Blue]"
         else
-            PS1+="$Light_Blue[$Light_Red$gitbranch ±$Light_Blue]"
+            PS1+="$Blue[$Light_Red$gitbranch ±$Blue]"
         fi
     fi
 
+    #hash conda && [[ -n $CONDA_DEFAULT_ENV ]] && [[ ! $CONDA_DEFAULT_ENV =~ 'root' ]] && PS1+=" $Blue($Yellow$CONDA_DEFAULT_ENV$Blue)"
+    case $CONDA_DEFAULT_ENV in
+        "")    ;;
+        root*) ;;
+        *)     PS1+="$Blue($Yellow$CONDA_DEFAULT_ENV$Blue)" ;;
+    esac
 
     if [[ $last_command == 0 ]]; then
         PS1+="\n$Light_Gray::$Reset "

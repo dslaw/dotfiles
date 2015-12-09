@@ -10,7 +10,8 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias ll='ls -l'
-alias lb='git branch'
+
+alias gb='git branch'
 
 alias ..='cd ..'
 
