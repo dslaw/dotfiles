@@ -379,3 +379,6 @@ endfunction
 
 nnoremap <leader>! :call HashBang()<CR>
 
+" Clear
+nnoremap <leader>C ggdG
+
