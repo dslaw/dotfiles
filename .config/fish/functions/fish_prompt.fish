@@ -34,12 +34,28 @@ function fish_prompt
         else
             set git_info $blue '[ ' $green $git_branch $blue ' ]'
         end
-        echo -n -s $git_info $normal '    '
+        #echo -n -s $git_info $normal '    '
     end
 
-    # Display ( venvname ) if in a virtualenv
+    # Display ( envname ) if in a virtualenv or condaenv
     if set -q VIRTUAL_ENV
-        echo -n -s '( ' (basename "$VIRTUAL_ENV") ' )' ' '
+        set py_env $blue '( ' $yellow (basename "$VIRTUAL_ENV") $blue ' )' ' '
+    else if set -q CONDA_DEFAULT_ENV
+        set py_env $blue '( ' $yellow "$CONDA_DEFAULT_ENV" $blue ' )' ' '
+    end
+    #echo -n -s $py_env $normal
+
+    if set -q git_info
+        if set -q py_env
+            echo -n -s $git_info ' '
+            echo -n -s $py_env $normal ' '
+        else
+            echo -n -s $git_info $normal '    '
+        end
+    else
+        if set -q py_env
+            echo -n -s $py_env $normal ' '
+        end
     end
 
     # Print pwd or full path

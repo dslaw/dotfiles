@@ -14,6 +14,7 @@ set secure
 let s:os = substitute(system("uname"), "\n", "", "")
 
 " Plugin manager
+source ~/.vim/autoload/pathogen.vim " Neovim workaround
 execute pathogen#infect()
 syntax enable
 filetype plugin on
@@ -89,11 +90,11 @@ augroup CursorLine
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
-match ColorColumn /\%81v/
+match ColorColumn /\%80v/
 augroup ColorColumn
     autocmd!
-    autocmd WinEnter * match ColorColumn /\%81v/
-    autocmd WinLeave * match Blank /\%81v/
+    autocmd WinEnter * match ColorColumn /\%80v/
+    autocmd WinLeave * match Blank /\%80v/
 augroup END
 
 " Paragraph formatting
@@ -381,4 +382,19 @@ nnoremap <leader>! :call HashBang()<CR>
 
 " Clear
 nnoremap <leader>C ggdG
+
+set nojoinspaces
+
+if !&scrolloff
+    set scrolloff=2
+endif
+if !&sidescrolloff
+    set sidescrolloff=3
+endif
+
+" Extended regular expressions
+set magic
+
+" Neovim
+"tnoremap <Esc> <C-\><C-n>
 

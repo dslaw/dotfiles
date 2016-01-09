@@ -9,7 +9,7 @@ c.InteractiveShellApp.exec_files = []
 c.InteractiveShellApp.exec_lines = [
     "from __future__ import division, print_function",
     "import numpy as np",
-    "import pandas as pd",
+    #"import pandas as pd",
     "q = lambda: quit()"
     ]
 c.InteractiveShellApp.extensions = []
