@@ -218,9 +218,6 @@ let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/"]
 let g:syntastic_cpp_compiler_options = " -std=c++11"
 
-" Todo lists
-" git clone https://github.com/vitalk/vim-simple-todo
-
 " Clever-f
 " cd ~/.vim/bundle
 " git clone https://github.com/rhysd/clever-f.vim
@@ -235,13 +232,6 @@ highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
 
 " Enhanced C++ syntax highlighting
 " git clone https://github.com/octol/vim-cpp-enhanced-highlight
-
-" MatchTagAlways
-" git clone https://github.com/Valloric/MatchTagAlways
-nnoremap <leader>% :MtaJumpToOtherTag<CR>
-let g:mta_use_matchparen_group = 0
-let g:mta_set_default_matchtag_color = 0
-highlight MatchTag ctermfg=78 ctermbg=NONE guifg=78 guibg=NONE
 
 " Enhanced Javascript syntax
 " git clone https://github.com/jelera/vim-javascript-syntax
