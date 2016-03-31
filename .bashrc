@@ -31,6 +31,9 @@ if [[ -f ~/.aliases ]]; then
     source ~/.aliases
 fi
 
+# Vim
+export EDITOR=vim
+
 # Prompt with git branch status
 git_branch() {
     git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||'

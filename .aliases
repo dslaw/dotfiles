@@ -4,18 +4,18 @@ alias R='R --quiet'
 alias py="ipython --config='~/.ipython_config.py'"
 alias py3="ipython3 --config='~/.ipython_config.py'"
 
-alias ls='ls -G'
+alias ls='ls -G --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias ll='ls -l'
-
-alias gb='git branch'
+alias la='ls -a'
 
 alias ..='cd ..'
 
 alias psg='ps aux | grep -v grep | grep'
 
 alias ippublic='curl icanhazip.com'
+alias ippublic2='wget http://ipinfo.io/ip -qO -'
 
