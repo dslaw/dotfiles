@@ -215,7 +215,7 @@ let g:syntastic_python_python_exec = "/usr/bin/env python3"
 
 " stop complaining for Rcpp headers
 let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/"]
+let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/", "/usr/local/include/eigen3/"]
 let g:syntastic_cpp_compiler_options = " -std=c++11"
 
 " Clever-f
@@ -246,6 +246,13 @@ let g:python_highlight_space_errors = 0
 let g:python_highlight_all = 1
 let g:python_version_2 = 0
 let g:python_print_as_function = 1
+
+" Braceless
+" git clone https://github.com/tweekmonster/braceless.vim.git
+autocmd FileType python,yaml BracelessEnable +indent +fold
+
+" Elixir syntax
+" git clone https://github.com/elixir-lang/vim-elixir
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
