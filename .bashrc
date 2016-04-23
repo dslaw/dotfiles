@@ -107,3 +107,7 @@ set_prompt() {
 
 PROMPT_COMMAND='set_prompt'
 
+
+# added by Miniconda3 4.0.5 installer
+export PATH="~/miniconda3/bin:$PATH"
+
