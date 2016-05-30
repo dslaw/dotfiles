@@ -30,7 +30,7 @@ if (interactive()) {
             repos = c(CRAN = "http://cran.cnr.Berkeley.edu/"),
             stringsAsFactors = FALSE,
             show.signif.stars = FALSE,
-            digits = 5,
+            digits = 7,
             scipen = 7,
             pdfviewer = "/usr/bin/zathura",
             menu.graphics = FALSE,

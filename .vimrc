@@ -111,7 +111,7 @@ set timeoutlen=1000 " cannot be too low otherwise Vim-R shortcuts won't work
 set ttimeoutlen=100
 
 " Search options
-hi Search cterm=None ctermfg=113 ctermbg=None gui=None guifg=213 guibg=16
+hi Search cterm=None ctermfg=113 ctermbg=None gui=None
 set hlsearch
 set incsearch
 set ignorecase
@@ -163,6 +163,7 @@ command! Strip %s/\s\+$//g
 
 " Airline
 " git clone https://github.com/bling/vim-airline
+" git clone https://github.com/vim-airline/vim-airline-themes.git
 set laststatus=2 " airline bar always present
 if s:os == "Darwin"
     let g:airline_theme = 'base16'
@@ -216,7 +217,7 @@ let g:syntastic_python_python_exec = "/usr/bin/env python3"
 " stop complaining for Rcpp headers
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_include_dirs = ["/home/dave/R/x86_64-pc-linux-gnu-library/3.1/Rcpp/include/", "/usr/local/include/eigen3/"]
-let g:syntastic_cpp_compiler_options = " -std=c++11"
+let g:syntastic_cpp_compiler_options = " -std=c++14"
 
 " Clever-f
 " cd ~/.vim/bundle
@@ -228,16 +229,10 @@ let g:clever_f_fix_key_direction = 1
 nnoremap <Plug>(clever-f-reset) <Esc>
 let g:clever_f_mark_char = 1
 let g:clever_f_mark_char_color = "Motion"
-highlight Motion ctermfg=45 ctermbg=NONE guifg=45 guibg=NONE
+highlight Motion ctermfg=45 ctermbg=NONE
 
 " Enhanced C++ syntax highlighting
 " git clone https://github.com/octol/vim-cpp-enhanced-highlight
-
-" Enhanced Javascript syntax
-" git clone https://github.com/jelera/vim-javascript-syntax
-
-" Javascript-Indent
-" git clone https://github.com/vim-scripts/JavaScript-Indent
 
 " Python syntax
 " git clone https://github.com/hdima/python-syntax
@@ -249,10 +244,13 @@ let g:python_print_as_function = 1
 
 " Braceless
 " git clone https://github.com/tweekmonster/braceless.vim.git
-autocmd FileType python,yaml BracelessEnable +indent +fold
+autocmd FileType python,yaml BracelessEnable +fold
 
 " Elixir syntax
 " git clone https://github.com/elixir-lang/vim-elixir
+
+" vim-surround
+" git clone git://github.com/tpope/vim-surround.git
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Vim-Slime
@@ -261,6 +259,8 @@ autocmd FileType python,yaml BracelessEnable +indent +fold
 " requires tmux/screen
 let g:slime_python_ipython = 1
 let g:slime_target = "tmux"
+" tmux 2.2 compatibility
+let g:slime_paste_file = "$HOME/.slime_paste"
 
 let g:slime_no_mappings = 1
 xmap <leader>d <Plug>SlimeRegionSend
