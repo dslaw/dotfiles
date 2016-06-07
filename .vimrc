@@ -187,10 +187,12 @@ set wildignore+=*.pyc,*.so,*.swp,*.zip
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['Makefile']
 
-" NERD tree
-" git clone https://github.com/scrooloose/nerdtree
-nmap <F2> :NERDTreeToggle<CR>
-let g:NERDTreeWinSize = 15
+" Netrw
+nmap <F2> :Lexplore<CR>
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_liststyle = 3
+let g:netrw_winsize = -18
 
 " Tagbar
 " git clone https://github.com/majutsushi/tagbar
