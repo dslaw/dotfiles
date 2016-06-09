@@ -12,13 +12,10 @@ done
 cd
 
 # Install patched fonts
-git clone https://github.com/powerline/fonts
+git clone https://github.com/powerline/fonts ~/fonts
 cd fonts && ./install.sh
 fc-cache fonts
 
 # Install jellybeans colorscheme
-mkdir -p ~/.vim/colors && cd ~/.vim/colors
-git clone https://github.com/nanotech/jellybeans.vim
-mv jellybeans.vim jellybeans
-cp jellybeans/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+git clone https://github.com/nanotech/jellybeans.vim ~/.vim/bundle/jellybeans.vim
 
