@@ -276,7 +276,7 @@ xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 nmap <leader>rr <Plug>SlimeConfig
 
-so ~/dotfiles/slime_addon.vim
+so ~/dotfiles/connect.vim
 
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
