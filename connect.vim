@@ -1,7 +1,10 @@
 " Connect a Vim process to a Tmux slime session
+" Each instance of Vim is mapped to a Tmux socket to avoid clobber.
 
 let g:slime_terminal = "urxvt"
-let s:session_name = "slime-repl"
+let g:session_name = "slime-repl"
+" Define socket globally so changes persist across buffers
+let g:slime_default_config = {"socket_name": "default", "target_pane": ":"}
 
 
 function! s:TmuxConnection()
@@ -11,11 +14,11 @@ function! s:TmuxConnection()
 endfunction
 
 function! s:TmuxPane(cmd)
-    if b:slime_default_config["target_pane"] == ":"
+    if g:slime_default_config["target_pane"] == ":"
         let active_panes = a:cmd . " list-panes"
         let pane = system(active_panes)[0]
     else
-        let pane = b:slime_default_config["target_pane"]
+        let pane = g:slime_default_config["target_pane"]
     endif
 
     return pane
@@ -52,8 +55,8 @@ function! SlimeSpawn(cmd, exit)
 
     " Update buffer local config
     let socket_name = split(tmux)[-1]
-    let b:slime_default_config["socket_name"] = socket_name
-    " TODO: maintaining a list of sockets and their orignal buffers would be
+    let g:slime_default_config["socket_name"] = socket_name
+    " TODO: maintaining a list of sockets and their orignal buffers may be
     " hepful
 
     " Set globally so the repl can be closed from any buffer (tied to
@@ -83,14 +86,12 @@ let b:repl_quit = ""
 
 augroup SlimeOpts
     autocmd!
-    autocmd FileType r let b:interpreter = "R" | let b:repl_quit = "q()"
-    autocmd FileType python let b:interpreter = "py3" | let b:repl_quit = "q()"
-    autocmd FileType julia let b:interpreter = "julia" | let b:repl_quit = "quit()"
     autocmd FileType clojure let b:interpreter = "lein repl" | let b:repl_quit = "exit"
+    autocmd FileType elixir let b:interpreter = "iex" | let b:repl_quit "System.halt"
+    autocmd FileType julia let b:interpreter = "julia" | let b:repl_quit = "quit()"
+    autocmd FileType python let b:interpreter = "py3" | let b:repl_quit = "q()"
+    autocmd FileType r let b:interpreter = "R" | let b:repl_quit = "q()"
 
-    " bad triggers...
-    " FIXME: new buffers don't know the socket name of previous buffers
-    autocmd BufEnter * let b:slime_default_config = {"socket_name": "default", "target_pane": ":"}
     autocmd BufNewFile,BufRead * nmap <silent> <leader>rf :call SlimeSpawn(b:interpreter, b:repl_quit)<CR>
     autocmd BufNewFile,BufRead * nmap <silent> <leader>rq :call SlimeQuit(g:exit_cmd)<CR>
 augroup END
