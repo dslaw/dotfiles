@@ -26,7 +26,7 @@ endfunction
 
 function! s:SlimeLaunch()
     let tmux = s:TmuxConnection()
-    let tmux_cmd = tmux . " new -s " . s:session_name
+    let tmux_cmd = tmux . " new -s " . g:session_name
 
     let cmd = g:slime_terminal . " -e " . tmux_cmd . " &"
     echo system(cmd)
@@ -51,7 +51,7 @@ function! SlimeSpawn(cmd, exit)
 
     let tmux = s:SlimeLaunch()
     echo system("sleep .1")
-    call s:SlimeEnterREPL(a:cmd, s:session_name)
+    call s:SlimeEnterREPL(a:cmd, g:session_name)
 
     " Update buffer local config
     let socket_name = split(tmux)[-1]
@@ -72,8 +72,8 @@ function! SlimeQuit(exit_cmd)
     " FIXME: this will break if `exit_cmd` has single quotes in it
     let exit_cmd = "'" . a:exit_cmd . "'"
 
-    let exit_repl = tmux_cmd . " send -t " . s:session_name . ":" . pane . " " . exit_cmd . " ENTER"
-    let tmux_kill_session = tmux_cmd . " kill-session -t " . s:session_name
+    let exit_repl = tmux_cmd . " send -t " . g:session_name . ":" . pane . " " . exit_cmd . " ENTER"
+    let tmux_kill_session = tmux_cmd . " kill-session -t " . g:session_name
 
     echo system(exit_repl)
     echo system(tmux_kill_session)
