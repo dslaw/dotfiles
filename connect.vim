@@ -5,6 +5,7 @@ let g:slime_terminal = "urxvt"
 let g:session_name = "slime-repl"
 " Define socket globally so changes persist across buffers
 let g:slime_default_config = {"socket_name": "default", "target_pane": ":"}
+let b:slime_default_config = g:slime_default_config
 
 
 function! s:TmuxConnection()
