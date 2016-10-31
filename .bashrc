@@ -108,6 +108,6 @@ set_prompt() {
 PROMPT_COMMAND='set_prompt'
 
 
-#export PATH="$HOME/anaconda/bin:$PATH"
-[[ ":$PATH:" != *":$HOME/anaconda/bin:"* ]] && PATH="$HOME/anaconda/bin:${PATH}"
+PATH="$HOME/anaconda/bin:$PATH"
+#[[ ":$PATH:" != *":$HOME/anaconda/bin:"* ]] && PATH="$HOME/anaconda/bin:${PATH}"
 
