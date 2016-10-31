@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
 
-# Install pathogen
+# Install vim-plug
 mkdir -p ~/.vim/autoload ~/.vim/bundle
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-# Install packages
-cd ~/.vim/bundle
-grep "git clone" ~/.vimrc | sed 's/\" //' | while read -r line; do
-    $line
-done
-cd
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Install patched fonts
 git clone https://github.com/powerline/fonts ~/fonts
-cd fonts && ./install.sh
-fc-cache fonts
-
-# Install jellybeans colorscheme
-git clone https://github.com/nanotech/jellybeans.vim ~/.vim/bundle/jellybeans.vim
+cd ~/fonts && ./install.sh
+fc-cache ~/fonts
 

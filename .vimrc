@@ -10,9 +10,29 @@ set nocompatible
 set exrc
 set secure
 
-" Plugin manager
-source ~/.vim/autoload/pathogen.vim " Neovim workaround
-execute pathogen#infect()
+" Plugins
+call plug#begin('~/.vim/bundle')
+
+Plug 'jpalardy/vim-slime'
+Plug 'tpope/vim-fugitive'
+Plug 'majutsushi/tagbar' " apt-get install exuberant-ctags
+Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
+Plug 'scrooloose/syntastic' " apt-get install flake8
+Plug 'rhysd/clever-f.vim'
+Plug 'FooSoft/vim-argwrap'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'hdima/python-syntax', {'for': 'python'}
+"Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+"Plug 'rust-lang/rust.vim', {'for': 'rust'}
+
+Plug 'nanotech/jellybeans.vim'
+
+call plug#end()
+
+" Filetype settings
 syntax enable
 filetype plugin on
 filetype indent on
@@ -168,12 +188,10 @@ command! Strip %s/\s\+$//g
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Plugins ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Plugin Config ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " Airline
-" git clone https://github.com/bling/vim-airline
-" git clone https://github.com/vim-airline/vim-airline-themes.git
 set laststatus=2
 let g:airline_theme = 'raven'
 let g:airline_powerline_fonts = 1
@@ -183,16 +201,6 @@ let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#flags = 's'
 
-" Fugitive
-" git clone https://github.com/tpope/vim-fugitive
-
-" ctrlp
-" git clone https://github.com/ctrlpvim/ctrlp.vim
-let g:ctrlp_max_height = 30
-set wildignore+=*.pyc,*.so,*.swp,*.zip
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['Makefile']
-
 " Netrw
 nmap <F2> :Lexplore<CR>
 let g:netrw_banner = 0
@@ -201,31 +209,25 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = -18
 
 " Tagbar
-" git clone https://github.com/majutsushi/tagbar
-" apt-get install exuberant-ctags
 nmap <F3> :TagbarToggle<CR>
 
 " Undotree
-" git clone https://github.com/mbbill/undotree
 nmap <F5> :UndotreeToggle<CR>
 
 " syntastic
-" git clone https://github.com/scrooloose/syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_python_exec = "/usr/bin/env python3"
 let g:syntastic_cpp_compiler_options = " -std=c++14"
 
 " Clever-f
-" cd ~/.vim/bundle
-" git clone https://github.com/rhysd/clever-f.vim
 let g:clever_f_across_no_line = 1
 let g:clever_f_ignore_case = 0
 let g:clever_f_smart_case = 0
@@ -235,38 +237,17 @@ let g:clever_f_mark_char = 1
 let g:clever_f_mark_char_color = "Motion"
 highlight Motion ctermfg=45 ctermbg=NONE
 
-" Indent object
-" git clone https://github.com/michaeljsmith/vim-indent-object
-
 " Argwrap
-" git clone https://github.com/FooSoft/vim-argwrap
 nnoremap <silent> <leader>a :ArgWrap<CR>
 
-" vim-surround
-" git clone git://github.com/tpope/vim-surround.git
-
-" Syntax highlighting
-" Enhanced C++ syntax highlighting
-" git clone https://github.com/octol/vim-cpp-enhanced-highlight
-
 " Python syntax
-" git clone https://github.com/hdima/python-syntax
 let g:python_highlight_file_headers_as_comments = 1
 let g:python_highlight_space_errors = 0
 let g:python_highlight_all = 1
 let g:python_version_2 = 0
 let g:python_print_as_function = 1
 
-" Elixir syntax
-" git clone https://github.com/elixir-lang/vim-elixir
-
-" Rust syntax
-" git clone https://github.com/rust-lang/rust.vim
-
 " Vim-Slime
-" git clone https://github.com/jpalardy/vim-slime.git
-" https://github.com/jpalardy/vim-slime/blob/master/doc/vim-slime.txt
-" requires tmux/screen
 let g:slime_python_ipython = 1
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste" " tmux 2.2 compatibility
