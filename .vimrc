@@ -15,9 +15,9 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-fugitive'
-Plug 'majutsushi/tagbar' " apt-get install exuberant-ctags
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
-Plug 'scrooloose/syntastic' " apt-get install flake8
+Plug 'scrooloose/syntastic'
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'bling/vim-airline'
@@ -25,8 +25,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 Plug 'hdima/python-syntax', {'for': 'python'}
-"Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
-"Plug 'rust-lang/rust.vim', {'for': 'rust'}
+"Plug 'elixir-lang/vim-elixir'
+"Plug 'rust-lang/rust.vim'
 
 Plug 'nanotech/jellybeans.vim'
 
@@ -209,6 +209,7 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = -18
 
 " Tagbar
+" system-wide dependency: exuberant-ctags
 nmap <F3> :TagbarToggle<CR>
 
 " Undotree
@@ -224,8 +225,11 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_python_exec = "/usr/bin/env python3"
-let g:syntastic_cpp_compiler_options = " -std=c++14"
+" system-wide dependency: flake8
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_python_exec = system('which python') " virtual envs
+
+let g:syntastic_cpp_compiler_options = " -std=c++14 -Wall"
 
 " Clever-f
 let g:clever_f_across_no_line = 1
@@ -261,31 +265,6 @@ so ~/dotfiles/connect.vim
 
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
-
-function! HashBang()
-    let topline = getline(1)
-    if topline =~ "#!"
-        return
-    endif
-
-    let ftype = &ft
-    let execs = {"r": "Rscript",
-                \"sh": "bash",
-                \}
-    if has_key(execs, ftype)
-        let e = execs[ftype]
-    else
-        let e = ftype
-    endif
-
-    let hashbang = "#!/usr/bin/env" . " " . e
-    let failed = append(0, [hashbang, ""])
-endfunction
-
-nnoremap <silent> <leader>! :call HashBang()<CR>
-
-" Neovim
-"tnoremap <Esc> <C-\><C-n>
-
 autocmd BufNewFile,BufRead *.jl set ft=julia
+autocmd BufNewFile,BufRead [dD]ocker-compose.yml set ft=dockerfile
 
