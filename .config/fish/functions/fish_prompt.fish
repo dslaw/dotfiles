@@ -30,27 +30,25 @@ function fish_prompt
         set -l git_branch (_git_branch_name)
 
         if [ (_git_is_dirty) ]
-            set git_info $blue '[ ' $red $git_branch "±" $blue ' ]'
+            set git_info $blue '[' $red $git_branch "±" $blue ']'
         else
-            set git_info $blue '[ ' $green $git_branch $blue ' ]'
+            set git_info $blue '[' $green $git_branch $blue ']'
         end
-        #echo -n -s $git_info $normal '    '
     end
 
-    # Display ( envname ) if in a virtualenv or condaenv
+    # Display (envname) if in a virtualenv or condaenv
     if set -q VIRTUAL_ENV
-        set py_env $blue '( ' $yellow (basename "$VIRTUAL_ENV") $blue ' )' ' '
+        set py_env $blue '(' $yellow (basename "$VIRTUAL_ENV") $blue ')' ' '
     else if set -q CONDA_DEFAULT_ENV
-        set py_env $blue '( ' $yellow "$CONDA_DEFAULT_ENV" $blue ' )' ' '
+        set py_env $blue '(' $yellow "$CONDA_DEFAULT_ENV" $blue ')' ' '
     end
-    #echo -n -s $py_env $normal
 
     if set -q git_info
         if set -q py_env
             echo -n -s $git_info ' '
             echo -n -s $py_env $normal ' '
         else
-            echo -n -s $git_info $normal '    '
+            echo -n -s $git_info $normal '  '
         end
     else
         if set -q py_env
@@ -72,4 +70,3 @@ function fish_prompt
     end
     echo -e -n -s ' '
 end
-
