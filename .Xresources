@@ -32,8 +32,8 @@ URxvt*skipScroll: true
 URxvt*mouseWheelScrollPage: true
 
 ! fc-list to list fonts
-URxvt*font: xft:Droid Sans Mono for Powerline:size=12
-URxvt*boldFont: xft:Droid Sans\\-Bold:size=12
+URxvt*font: xft:Inconsolata\\-dz for Powerline:style=medium:size=12
+URxvt*boldFont: xft:Inconsolate\\-dz for Powerline:style=bold:size=12
 
 URxvt*saveLines: 10000
 URxvt*buffered: true
