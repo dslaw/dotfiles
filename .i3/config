@@ -17,8 +17,10 @@ set $homepage ~/bin/startpage/main.html
 # Define colors
 set $night            #0C090A
 set $graycloud        #B6B6B4
+set $lightgray        #D3D3D3
 set $darkslategrey    #25383C
 set $puce             #7F5A58
+set $transparent      #1D2021A0
 
 # Startup programs
 exec --no-startup-id xfce4-power-manager
@@ -215,10 +217,12 @@ bindsym $mod+minus scratchpad show
 
 bar {
         colors {
-            background  $night
-            statusline  $graycloud
-            separator   $graycloud
+            background  $transparent
+            statusline  $lightgray
+            separator   $lightgray
         }
+
+        i3bar_command i3bar -t
 
         mode dock
         position top
