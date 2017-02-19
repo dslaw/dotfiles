@@ -11,21 +11,21 @@ if (interactive()) {
     .Rprofile$bayes <- "ℙ(θ|D)"
     .Rprofile$phi <- "\u03c6"
 
-    .Rprofile$stazitta <- function(pkg) {
+    .Rprofile$require_quiet <- function(pkg) {
         base::suppressPackageStartupMessages(
             base::require(pkg, character.only = TRUE)
         )
     }
 
-    .Rprofile$stazitta("colorout")
-    .Rprofile$stazitta("setwidth")
+    .Rprofile$require_quiet("colorout")
+    .Rprofile$require_quiet("setwidth")
 
     # Personal functions
-    .Rprofile$stazitta("rroba")
+    .Rprofile$require_quiet("rroba")
 
     # Set options
     options(max.print = 60L,
-            prompt = paste0(.Rprofile$green, .Rprofile$phi, " > ", .Rprofile$reset),
+            prompt = paste0(.Rprofile$green, "> ", .Rprofile$reset),
             continue = paste0(.Rprofile$green, "... ", .Rprofile$reset),
             repos = c(CRAN = "http://cran.cnr.Berkeley.edu/"),
             stringsAsFactors = FALSE,

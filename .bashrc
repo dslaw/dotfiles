@@ -1,7 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ~/.bashrc ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -91,7 +87,6 @@ set_prompt() {
         fi
     fi
 
-    #hash conda && [[ -n $CONDA_DEFAULT_ENV ]] && [[ ! $CONDA_DEFAULT_ENV =~ 'root' ]] && PS1+=" $Blue($Yellow$CONDA_DEFAULT_ENV$Blue)"
     case $CONDA_DEFAULT_ENV in
         "")    ;;
         root*) ;;
@@ -107,7 +102,4 @@ set_prompt() {
 
 PROMPT_COMMAND='set_prompt'
 
-
 PATH="$HOME/anaconda/bin:$PATH"
-#[[ ":$PATH:" != *":$HOME/anaconda/bin:"* ]] && PATH="$HOME/anaconda/bin:${PATH}"
-

@@ -2,7 +2,6 @@
 
 alias R='R --quiet'
 alias py="ipython --config='~/.ipython_config.py'"
-alias py3="ipython3 --config='~/.ipython_config.py'"
 
 alias ls='ls -G --color=auto'
 alias grep='grep --color=auto'

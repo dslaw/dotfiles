@@ -17,16 +17,14 @@ Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
-Plug 'scrooloose/syntastic'
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'sheerun/vim-polyglot'
 Plug 'hdima/python-syntax', {'for': 'python'}
-"Plug 'elixir-lang/vim-elixir'
-"Plug 'rust-lang/rust.vim'
 
 Plug 'nanotech/jellybeans.vim'
 
@@ -162,6 +160,7 @@ set foldnestmax=4      " deepest fold level
 " Scrolling
 " Move cursor to top of current visible window
 nnoremap K H
+vnoremap K H
 
 set scrolloff=2
 set sidescrolloff=3
@@ -198,7 +197,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#flags = 's'
 
 " Netrw
@@ -209,27 +207,17 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = -18
 
 " Tagbar
-" system-wide dependency: exuberant-ctags
 nmap <F3> :TagbarToggle<CR>
+
+" ALE
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+nmap <silent> <leader>fk <Plug>(ale_previous_wrap)
+nmap <silent> <leader>fl <Plug>(ale_next_wrap)
 
 " Undotree
 nmap <F5> :UndotreeToggle<CR>
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-" system-wide dependency: flake8
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_python_exec = system('which python') " virtual envs
-
-let g:syntastic_cpp_compiler_options = " -std=c++14 -Wall"
 
 " Clever-f
 let g:clever_f_across_no_line = 1
@@ -250,21 +238,18 @@ let g:python_highlight_space_errors = 0
 let g:python_highlight_all = 1
 let g:python_version_2 = 0
 let g:python_print_as_function = 1
+let g:polyglot_disabled = ["python"]  " Use enhanced python syntax
 
 " Vim-Slime
 let g:slime_python_ipython = 1
 let g:slime_target = "tmux"
-let g:slime_paste_file = "$HOME/.slime_paste" " tmux 2.2 compatibility
 
 let g:slime_no_mappings = 1
 xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 nmap <leader>rr <Plug>SlimeConfig
 
-so ~/dotfiles/connect.vim
-
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
 autocmd BufNewFile,BufRead *.jl set ft=julia
 autocmd BufNewFile,BufRead [dD]ocker-compose.yml set ft=dockerfile
-

@@ -12,7 +12,6 @@
 # variables
 set $mod Mod4
 set $term urxvt
-set $homepage ~/bin/startpage/main.html
 
 # Define colors
 set $night            #0C090A
@@ -26,16 +25,13 @@ set $transparent      #1D2021A0
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id compton --config /home/dave/.compton.conf
 exec --no-startup-id feh --bg-scale /home/dave/wall
-exec --no-startup-id i3-msg 'workspace $WS1; exec urxvt -title homesweethome -e fish'
 exec --no-startup-id wicd-client
 
 # Start apps
 bindsym $mod+Return exec $term -e fish
 bindsym $mod+d exec dmenu_run -i -l 5 -p '>>' -nb '$night' -nf '$puce' -sb '$darkslategrey'
-bindsym $mod+Shift+c exec chromium --incognito
-bindsym $mod+c exec firefox --private-window $homepage
+bindsym $mod+c exec firefox --private-window
 bindsym $mod+m exec $term -title cmus -e cmus
-bindsym $mod+t exec thunar
 bindsym $mod+y exec $term -e ranger
 
 # Commands for specific windows
@@ -43,10 +39,6 @@ for_window [class="Wicd"] floating enable
 for_window [class="Wicd"] move scratchpad
 for_window [class="[dD]eluge"] floating enable
 for_window [window_role="pop-up"] floating enable
-for_window [title="^homesweethome$"] floating enable
-for_window [title="^homesweethome$"] resize shrink height 200px
-for_window [title="^homesweethome$"] resize shrink width 200px
-for_window [title="^homesweethome$"] move absolute position 875 px 600 px
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -142,14 +134,7 @@ set $WS9 "9: &#xf092;"
 set $WS10 "10: &#xf1b8;"
 
 # Assign programs to workspaces
-assign [class="Wicd"] $WS1
-assign [class="Chromium"] $WS2
 assign [class="Firefox"] $WS2
-assign [title="cmus"] $WS5
-assign [class="Smplayer"] $WS5
-assign [class="mplayer*"] $WS5
-assign [class="Texstudio"] $WS6
-assign [class="libre*"] $WS6
 
 # switch to workspace
 bindsym $mod+Tab workspace next
