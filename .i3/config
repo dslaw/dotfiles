@@ -26,6 +26,7 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id compton --config /home/dave/.compton.conf
 exec --no-startup-id feh --bg-scale /home/dave/wall
 exec --no-startup-id wicd-client
+exec_always --no-startup-id /home/dave/.config/polybar/launch.sh
 
 # Start apps
 bindsym $mod+Return exec $term -e fish
@@ -111,27 +112,13 @@ bindsym $mod+a focus parent
 workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 
-# Name workspaces
-# fa-coffee
-# fa-firefox
-# fa-code
-# fa-terminal
-# fa-music
-# fa-files-o
-# fa-fire
-# fa-cogs
-# fa-github-square
-# fa-recycle
-set $WS1 "1: &#xf0f4;"
-set $WS2 "2: &#xf269;"
-set $WS3 "3: &#xf121;"
-set $WS4 "4: &#xf120;"
-set $WS5 "5: &#xf001;"
-set $WS6 "6: &#xf0c5;"
-set $WS7 "7: &#xf06d;"
-set $WS8 "8: &#xf085;"
-set $WS9 "9: &#xf092;"
-set $WS10 "10: &#xf1b8;"
+set $WS1 1
+set $WS2 2
+set $WS3 3
+set $WS4 4
+set $WS5 5
+set $WS9 9
+set $WS10 10
 
 # Assign programs to workspaces
 assign [class="Firefox"] $WS2
@@ -196,27 +183,6 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# i3status config file is at /etc/i3status.conf and ~/.i3/i3status.conf
-
-bar {
-        colors {
-            background  $transparent
-            statusline  $lightgray
-            separator   $lightgray
-        }
-
-        i3bar_command i3bar -t
-
-        mode dock
-        position top
-        status_command i3status -c ~/.i3/i3status.conf
-        tray_output primary
-        strip_workspace_numbers yes
-        separator_symbol " "
-}
-
 # i3-gaps
 gaps inner 20
 gaps outer 4
@@ -226,4 +192,3 @@ workspace $WS1 gaps inner 0
 workspace $WS1 gaps outer 0
 workspace $WS2 gaps inner 0
 workspace $WS2 gaps outer 0
-
