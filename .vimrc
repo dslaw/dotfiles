@@ -1,5 +1,4 @@
-" Vim ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Vim ~~~~~
 
 " Use vim settings, not vi settings
 " Must be first
@@ -19,8 +18,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 
 Plug 'sheerun/vim-polyglot'
@@ -187,18 +184,33 @@ command! Strip %s/\s\+$//g
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Plugin Config ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Statusline
+" See vim-airline for icons.
+" https://github.com/vim-airline/vim-airline/blob/7813a5491223befd80f798c86802488613908b58/autoload/airline/init.vim#L74
+function! ReadOnly()
+    return &readonly || !&modifiable ?
+        \ printf('[%s]', "\ue0a2") :
+        \ ''
+endfunction
 
-" Airline
+function! GitBranch()
+    let branch = fugitive#head()
+    return branch != '' ?
+        \ printf('%s %s', "\ue0a0", branch) :
+        \ ''
+endfunction
+
+hi StatusLine ctermfg=darkgrey ctermbg=black guifg=darkgrey guibg=black
 set laststatus=2
-let g:airline_theme = 'raven'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tagbar#flags = 's'
 
+set statusline=%f                       " Filename
+set statusline+=%(\ %m%{ReadOnly()}%)   " Modified + Locked
+"set statusline+=\ (BUF\ %n)             " Bufferno
+set statusline+=%=
+set statusline+=%-10.(%l,%v%)           " Lineno + Virtual colno
+set statusline+=%10.(%{GitBranch()}%)   " Git
+
+" Plugin Configuration ~~~~~
 " Netrw
 nmap <F2> :Lexplore<CR>
 let g:netrw_banner = 0
