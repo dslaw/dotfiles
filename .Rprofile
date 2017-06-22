@@ -1,5 +1,4 @@
-# R profile for interactive use ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# R profile for interactive use.
 
 if (interactive()) {
 
@@ -24,7 +23,7 @@ if (interactive()) {
     .Rprofile$require_quiet("rroba")
 
     # Set options
-    options(max.print = 60L,
+    options(max.print = 60,
             prompt = paste0(.Rprofile$green, "> ", .Rprofile$reset),
             continue = paste0(.Rprofile$green, "... ", .Rprofile$reset),
             repos = c(CRAN = "http://cran.cnr.Berkeley.edu/"),
@@ -35,30 +34,18 @@ if (interactive()) {
             pdfviewer = "/usr/bin/zathura",
             menu.graphics = FALSE,
             editor = "vim",
-            menu.graphics = FALSE,
+            menu.graphics = FALSE)
 
-            # Warn on partial matches
-            warnPartialMatchAttr = TRUE,
-            warnPartialMatchDollar = TRUE,
-            warnPartialMatchArgs = TRUE)
-
-    # Colorout
-    # Use terminal colors instead of 256
-    setOutputColors(normal = 2, # green
-                    negnum = 1, # red
-                    zero = 3, # bright red
-                    error = c(0, 1), # red fg
-                    verbose = FALSE)
+    # Colorize in terminal
+    colorout::setOutputColors(normal = 2,         # green
+                              negnum = 1,         # red
+                              zero = 3,           # bright red
+                              error = c(0, 1),    # red fg
+                              verbose = FALSE)
 
 
     # Autocomplete package names in require and library
     utils::rc.settings(ipck = TRUE)
 
-    # Alias functions that are commonly used for variable names
-    .Rprofile$transpose <- base::t
-    .Rprofile$data. <- utils::data
-    .Rprofile$display.str <- utils::str
-
     attach(.Rprofile)
 }
-

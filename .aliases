@@ -1,7 +1,9 @@
 # Aliases for bash/fish
 
 alias R='R --quiet'
-alias py="ipython --config='~/.ipython_config.py'"
+alias ipython="ipython --config='~/.ipython_config.py'"
+alias slime='tmux -L slime'
+alias slime-new='slime new-session -s'
 
 alias ls='ls -G --color=auto'
 alias grep='grep --color=auto'
@@ -17,4 +19,3 @@ alias psg='ps aux | grep -v grep | grep'
 
 alias ippublic='curl icanhazip.com'
 alias ippublic2='wget http://ipinfo.io/ip -qO -'
-
