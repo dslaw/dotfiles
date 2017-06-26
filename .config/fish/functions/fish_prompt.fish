@@ -2,7 +2,13 @@ function _git_branch_name
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
 
+function _git_has_untracked
+    echo (command git ls-files --exclude-standard --others)
+end
+
 function _git_is_changed --description "Uncommited changes to tracked file(s)"
+    # XXX: `git status --short --untracked-files=no --ignore-submodules=dirty`
+    # does this with one less command.
     # Check for unstaged or staged changes.
     echo (command git diff --name-only ^/dev/null; and\
                   git diff --name-only --staged ^/dev/null)
@@ -33,6 +39,10 @@ function fish_prompt
 
     # Build the prompt, from left to right.
     if test -n $git_branch
+        if test (_git_has_untracked)
+            set git_branch "$git_branch•"
+        end
+
         set git_branch $delim"["$git_branch_color$git_branch$delim"] "
     end
 
