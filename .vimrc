@@ -23,7 +23,7 @@ Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'hdima/python-syntax', {'for': 'python'}
 
-Plug 'nanotech/jellybeans.vim'
+Plug 'ajh17/Spacegray.vim'
 
 call plug#end()
 
@@ -42,7 +42,7 @@ nmap <F1> <nop>
 imap <F1> <Esc>
 
 " Colorscheme
-colorscheme jellybeans
+colorscheme spacegray
 
 " Copy and paste
 set pastetoggle=<F4>
