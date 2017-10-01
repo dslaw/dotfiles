@@ -228,6 +228,9 @@ let g:ale_lint_on_enter = 0
 nmap <silent> <leader>fk <Plug>(ale_previous_wrap)
 nmap <silent> <leader>fl <Plug>(ale_next_wrap)
 
+let g:ale_linters = {"cpp": ["clangtidy"]}
+let g:ale_cpp_clangtidy_options = "-std=c++14 -Wall -Iinclude"
+
 " Undotree
 nmap <F5> :UndotreeToggle<CR>
 
