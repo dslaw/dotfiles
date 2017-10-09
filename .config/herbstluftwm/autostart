@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+hc set default_frame_layout 3
+hc set focus_follows_mouse 1
+
+#compton --config $HOME/.compton.conf
+feh --bg-scale $HOME/wall
+
+# remove all existing keybindings
+hc keyunbind --all
+
+# keybindings
+Mod=Mod4   # Use the super key as the main modifier
+Term=urxvt
+
+hc keybind $Mod-Shift-e quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-q close_or_remove
+
+# Spawns.
+hc keybind $Mod-Return spawn $Term -e fish
+hc keybind $Mod-c spawn firefox --private-window
+hc keybind $Mod-y spawn $Term -e ranger
+hc keybind $Mod-d spawn dmenu_run -i -l 5 -p '>>' -nb '#0C090A' -nf '#7F5A58' -sb '#25383C'
+
+# Focus/movement.
+left=j
+up=k
+down=l
+right=semicolon
+
+hc keybind $Mod-$left               focus left
+hc keybind $Mod-$down               focus down
+hc keybind $Mod-$up                 focus up
+hc keybind $Mod-$right              focus right
+
+hc keybind $Mod-Shift-$left         shift left
+hc keybind $Mod-Shift-$down         shift down
+hc keybind $Mod-Shift-$up           shift up
+hc keybind $Mod-Shift-$right        shift right
+
+hc keybind $Mod-BackSpace           cycle_monitor
+
+# Splitting frames.
+hc keybind $Mod-h                   split bottom 0.5
+hc keybind $Mod-Shift-h             split bottom 0.7
+hc keybind $Mod-v                   split right  0.5
+hc keybind $Mod-Shift-v             split right  0.7
+hc keybind $Mod-Control-space       split explode
+
+# Resize frames.
+resizestep=0.05
+hc keybind $Mod-Control-$left       resize left  +$resizestep
+hc keybind $Mod-Control-$down       resize down  +$resizestep
+hc keybind $Mod-Control-$up         resize up    +$resizestep
+hc keybind $Mod-Control-$right      resize right +$resizestep
+
+# Tags.
+# Put spacing here manually for polybar ...which makes it
+# annoying to reference tags via bash.
+tag_names=("  " "  " "  " "  " "  " "  ")
+tag_keys=( {1..5} 0)
+
+hc rename default "${tag_names[0]}" || true
+for i in ${!tag_names[@]} ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if ! [ -z "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# Layouts.
+hc keybind $Mod-s floating toggle
+hc keybind $Mod-f fullscreen toggle
+# The following cycles through the available layouts within a frame, but skips
+# layouts, if the layout change wouldn't affect the actual window positions.
+# I.e. if there are two windows within a frame, the grid layout is skipped.
+hc keybind $Mod-space                                                           \
+            or , and . compare tags.focus.curframe_wcount = 2                   \
+                     . cycle_layout +1 vertical horizontal max vertical grid    \
+               , cycle_layout +1
+
+hc keybind $Mod+m spawn $HOME/.config/herbstluftwm/lars
+
+# Mouse
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+
+# Theme.
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+hc attr theme.border_width 0
+hc attr theme.floating.border_width 4
+hc attr theme.floating.outer_width 1
+hc attr theme.floating.outer_color black
+hc attr theme.active.inner_color '#3E4A00'
+hc attr theme.active.outer_color '#3E4A00'
+
+hc set always_show_frame 0
+hc set frame_border_width 0
+hc set frame_bg_transparent 1
+hc set frame_transparent_width 0
+hc set frame_gap 0
+hc set frame_padding 0
+hc set smart_frame_surroundings 1
+hc set window_gap 20
+hc set smart_window_surroundings 0
+hc set mouse_recenter_gap 0
+
+# Rules.
+hc unrule -F
+hc rule focus=on # normally focus new clients
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on manage=off
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+
+hc rule class~'[dD]eluge' tag="${tag_names[0]}"
+hc rule class~'[fF]irefox' tag="${tag_names[1]}"
+
+# unlock, just to be sure
+hc unlock
+
+# find the panel
+hc detect_monitors
+panel=$HOME/.config/polybar/launch.sh
+if [ -x "$panel" ]; then
+    for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+        hc pad $monitor 20
+        # start it on each monitor
+        "$panel" $monitor &
+    done
+fi
+
+hc split vertical 0.5; hc remove

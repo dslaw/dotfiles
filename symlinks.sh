@@ -5,7 +5,8 @@
 
 backup=~/dotfiles_old
 files=".aliases .bashrc .config/fish .xinitrc .Xresources \
-       .i3 .compton.conf .config/ranger/rc.conf \
+       .i3 .config/herbstluftwm .compton.conf \
+       .config/ranger/rc.conf \
        .ipython_config.py .Rprofile .vimrc"
 
 mkdir -p $backup

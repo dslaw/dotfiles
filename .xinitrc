@@ -7,5 +7,5 @@ setxkbmap -option caps:ctrl_modifier
 xcape -e Caps_Lock=Escape
 
 # Initiate windows manager
-exec i3
+exec herbstluftwm --locked
 

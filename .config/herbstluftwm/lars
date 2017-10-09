@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+
+hc() {
+    herbstclient "$@"
+}
+
+multi_frame() {
+    hc compare tags.focus.frame_count gt 1
+}
+
+
+if multi_frame; then
+    # Merge frames.
+    while multi_frame; do
+        hc focus_nth -1 && hc remove
+    done
+    hc set_layout grid
+else
+    # Split into two horizontal frames.
+    hc load '(split horizontal:0.5:1 (clients grid:0) (clients vertical:0))'
+    hc focus -e left
+fi
