@@ -50,10 +50,10 @@ new_float normal
 new_window pixel 2
 
 # Window decorations:
-#colorclass              border   bg       text     indicator child_border
-client.focused           #333333  #424242  #3B3EDB  #292d2e   #644e4a
-client.focused_inactive  #333333  #5F676A  #ffffff  #484e50
-client.unfocused         #333333  #424242  #888888  #292d2e
+# colorclass             border   bg       text     indicator child_border
+client.focused           #333333  #424242  #3B3EDB  #111314   #111314
+client.focused_inactive  #333333  #5F676A  #ffffff  #111314   #111314
+client.unfocused         #333333  #5F676A  #ffffff  #111314   #111314
 client.urgent            #C10004  #900000  #ffffff  #900000
 
 # Use Mouse+$mod to drag floating windows to their wanted position
