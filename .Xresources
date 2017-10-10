@@ -48,6 +48,6 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd: xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 
-URxvt.internalBorder: 6
+URxvt.internalBorder: 32
 Urxvt.borderColor: black
 
