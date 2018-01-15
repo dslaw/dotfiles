@@ -25,9 +25,7 @@ Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'w0rp/ale'
-
 Plug 'sheerun/vim-polyglot'
-Plug 'hdima/python-syntax', {'for': 'python'}
 
 Plug 'ajh17/Spacegray.vim'
 
@@ -258,8 +256,6 @@ let g:python_highlight_file_headers_as_comments = 1
 let g:python_highlight_space_errors = 0
 let g:python_highlight_all = 1
 let g:python_version_2 = 0
-let g:python_print_as_function = 1
-let g:polyglot_disabled = ["python"]  " Use enhanced python syntax
 
 " Vim-Slime
 let g:slime_python_ipython = 1
