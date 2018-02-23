@@ -17,7 +17,16 @@ if (interactive()) {
     }
 
     .Rprofile$require_quiet("colorout")
-    .Rprofile$require_quiet("setwidth")
+
+    # Update width when terminal resizes.
+    # https://groups.google.com/forum/#!topic/vim-r-plugin/SeQCNWxEPwk
+    set_width <- function(width = NULL) {
+        if (is.null(width)) {
+            width <- as.integer(Sys.getenv("COLUMNS"))
+        }
+        options(width=width)
+    }
+    makeActiveBinding("sw", set_width, baseenv())
 
     # Personal functions
     .Rprofile$require_quiet("rroba")
