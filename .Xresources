@@ -49,5 +49,5 @@ URxvt.clipboard.copycmd: xsel -ib
 URxvt.clipboard.pastecmd: xsel -ob
 
 URxvt.internalBorder: 32
-Urxvt.borderColor: black
+Urxvt.borderColor: background
 
