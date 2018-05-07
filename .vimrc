@@ -47,6 +47,11 @@ imap <F1> <Esc>
 
 " Colorscheme
 colorscheme spacegray
+if !g:spacegray_low_contrast
+    " Closer to the background color defined in .colors/spacegray
+    " than the colorscheme's default.
+    highlight Normal ctermbg=233
+endif
 
 " Copy and paste
 set pastetoggle=<F4>
