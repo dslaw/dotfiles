@@ -278,3 +278,4 @@ nmap <leader>rr <Plug>SlimeConfig
 autocmd FileType r inoremap <buffer> __ <space><-<space>
 autocmd BufNewFile,BufRead *.jl set ft=julia
 autocmd BufNewFile,BufRead [dD]ocker-compose.yml set ft=dockerfile
+autocmd FileType html,css,javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
