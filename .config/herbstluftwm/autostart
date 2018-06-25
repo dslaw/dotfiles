@@ -79,6 +79,7 @@ done
 # Layouts.
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-Shift-f spawn $HOME/.config/herbstluftwm/toggle_max
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.

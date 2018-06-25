@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+
+hc() {
+    herbstclient "$@"
+}
+
+
+LAYOUTS=(vertical horizontal max grid)
+DEFAULT=$(hc get default_frame_layout)
+
+# Toggle back and forth between max and the default.
+hc cycle_layout +1 max ${LAYOUTS[$DEFAULT]}
