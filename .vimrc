@@ -255,6 +255,7 @@ highlight Motion ctermfg=45 ctermbg=NONE
 
 " Argwrap
 nnoremap <silent> <leader>a :ArgWrap<CR>
+let g:argwrap_tail_comma_braces = '[{'
 
 " Python syntax
 let g:python_highlight_file_headers_as_comments = 1
@@ -274,8 +275,12 @@ xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 nmap <leader>rr <Plug>SlimeConfig
 
+" Javascript/Typescript
+autocmd FileType javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript,typescript let g:argwrap_padded_braces = '[{'
+
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
 autocmd BufNewFile,BufRead *.jl set ft=julia
 autocmd BufNewFile,BufRead [dD]ocker-compose.yml set ft=dockerfile
-autocmd FileType html,css,javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType html,css set tabstop=2 shiftwidth=2 softtabstop=2
