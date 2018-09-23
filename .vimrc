@@ -26,6 +26,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
+Plug 'plasticboy/vim-markdown'  " https://github.com/sheerun/vim-polyglot/issues/152
 
 Plug 'ajh17/Spacegray.vim'
 
@@ -274,6 +275,11 @@ let g:slime_no_mappings = 1
 xmap <leader>d <Plug>SlimeRegionSend
 nmap <leader>d <Plug>SlimeLineSend
 nmap <leader>rr <Plug>SlimeConfig
+
+" Vim-Markdown
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_fenced_languages = ["c++=cpp", "viml=vim", "bash=sh",
+                                      \"python", "js=javascript"]
 
 " Javascript/Typescript
 autocmd FileType javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
