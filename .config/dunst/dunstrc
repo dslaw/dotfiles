@@ -1,0 +1,47 @@
+[global]
+    monitor = 0
+    follow = mouse
+    geometry = "300x10-15+10"
+    indicate_hidden = yes
+    shrink = no
+    transparency = 0
+    separator_height = 2
+    frame_width = 5
+    frame_color = "#66899D"
+    separator_color = "#B7BBB7"
+    sort = yes
+    idle_threshold = 120
+
+    font = Inconsolata 12
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    show_age_threshold = -1
+    word_wrap = yes
+    ignore_newline = no
+
+    title = Dunst
+    class = Dunst
+    startup_notification = false
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+    history = ctrl+grave
+    context = ctrl+shift+period
+
+[urgency_low]
+    background = "#66899D"
+    foreground = "#B7BBB7"
+    timeout = 10
+
+[urgency_normal]
+    background = "#66899D"
+    foreground = "#B7BBB7"
+    timeout = 10
+
+[urgency_critical]
+    background = "#B04C50"
+    foreground = "#B7BBB7"
+    frame_color = "#B04C50"
+    timeout = 0

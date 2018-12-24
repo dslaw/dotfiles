@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+script=$(dirname $0)/status.py
+notify-send "$(${script})" --icon=dialog-information
