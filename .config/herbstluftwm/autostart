@@ -26,7 +26,7 @@ hc keybind $Mod-Shift-q close_or_remove
 hc keybind $Mod-Return spawn $Term -e fish
 hc keybind $Mod-c spawn firefox --private-window
 hc keybind $Mod-y spawn $Term -e ranger
-hc keybind $Mod-d spawn dmenu_run -i -l 5 -p '>>' -nb '#0C090A' -nf '#7F5A58' -sb '#25383C'
+hc keybind $Mod-d spawn rofi -show run -theme /usr/share/rofi/themes/android_notification.rasi
 
 # Focus/movement.
 left=j
