@@ -38,7 +38,7 @@ URxvt*boldFont: xft:Inconsolate:style=bold:size=14
 URxvt*saveLines: 10000
 URxvt*buffered: true
 URxvt*hold: false
-URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+!URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
 
 ! copy/paste in terminal
 URxvt.perl-ext-common: default,matcher,selection-to-clipboard
