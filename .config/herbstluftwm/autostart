@@ -127,7 +127,7 @@ hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on manage=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 hc rule class~'[dD]eluge' tag="${tag_names[0]}"
-hc rule class~'[fF]irefox' tag="${tag_names[1]}"
+hc rule class~'[fF]irefox(-esr)?' tag="${tag_names[1]}"
 
 # unlock, just to be sure
 hc unlock
