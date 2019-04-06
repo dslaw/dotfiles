@@ -1,6 +1,6 @@
 # Aliases for bash/fish
 
-alias R='R --quiet'
+alias R='R --quiet --no-save'
 alias ipython="ipython --config='~/.ipython_config.py'"
 alias slime='tmux -L slime'
 alias slime-new='slime new-session -s'
@@ -11,7 +11,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias ll='ls -l'
-alias la='ls -a'
+alias la='ls --almost-all'
 
 alias ..='cd ..'
 
