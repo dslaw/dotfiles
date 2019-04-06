@@ -32,8 +32,8 @@ URxvt*skipScroll: true
 URxvt*mouseWheelScrollPage: true
 
 ! fc-list to list fonts
-URxvt*font: xft:Inconsolata:style=medium:size=14
-URxvt*boldFont: xft:Inconsolate:style=bold:size=14
+URxvt*font: xft:Inconsolata for Powerline:style=Medium:size=14
+URxvt*boldFont: xft:Inconsolata for Powerline:style=BoldForPowerline:size=14
 
 URxvt*saveLines: 10000
 URxvt*buffered: true
