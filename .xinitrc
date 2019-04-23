@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+tU:W!/usr/bin/env bash
 
 xrdb -load ~/.Xresources
 
