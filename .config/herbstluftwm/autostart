@@ -8,6 +8,7 @@ hc emit_hook reload
 hc set default_frame_layout 3
 hc set focus_follows_mouse 1
 
+bash $HOME/dotfiles/session.sh
 #compton --config $HOME/.compton.conf
 feh --bg-scale $HOME/wall
 
