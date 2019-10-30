@@ -285,6 +285,10 @@ let g:vim_markdown_fenced_languages = ["c++=cpp", "viml=vim", "bash=sh",
 autocmd FileType javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType javascript,typescript let g:argwrap_padded_braces = '[{'
 
+" Elm
+autocmd FileType elm set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType elm let g:argwrap_comma_first = 1
+
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
 autocmd BufNewFile,BufRead *.jl set ft=julia
