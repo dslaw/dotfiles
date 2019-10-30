@@ -102,4 +102,4 @@ set_prompt() {
 
 PROMPT_COMMAND='set_prompt'
 
-PATH="$HOME/anaconda/bin:$PATH"
+PATH="$HOME/anaconda/bin:$HOME/.yarn/bin:$PATH"
