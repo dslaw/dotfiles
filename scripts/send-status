@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
 script=$(dirname $0)/status.py
-notify-send "$(${script})" --icon=dialog-information
+# Placeholder summary, which is ignored by `dunstrc`. This is due to
+# the behavior in dunst 1.4.1 in which markup in the summary is
+# not supported: https://github.com/dunst-project/dunst/issues/616
+notify-send "PLACEHOLDER" "$(${script})"
