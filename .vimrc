@@ -20,13 +20,10 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-fugitive'
-Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree', {'on': 'UndoTreeToggle'}
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
-Plug 'plasticboy/vim-markdown'  " https://github.com/sheerun/vim-polyglot/issues/152
 
 Plug 'ajh17/Spacegray.vim'
 
