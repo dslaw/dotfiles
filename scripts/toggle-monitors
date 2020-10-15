@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -eu
+
+external_output=HDMI-1
+internal_output=eDP-1
+mode=1920x1080
+
+case $1 in
+    up)
+        xrandr \
+            --output ${external_output} \
+            --mode ${mode} \
+            --primary \
+            --output ${internal_output} \
+            --mode ${mode} \
+            --right-of ${external_output}
+        herbstclient detect_monitors
+        ;;
+    down)
+        external_monitor=$(
+            xrandr --listmonitors |
+            tail -n+2 |
+            grep -v ${internal_output} |
+            cut -d: -f1
+        )
+        herbstclient remove_monitor ${external_monitor}
+        xrandr \
+            --output ${internal_output} \
+            --mode ${mode} \
+            --primary
+        ;;
+    *)
+        echo "Argument must be one of 'up' or 'down'"
+        ;;
+esac

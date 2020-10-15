@@ -30,6 +30,8 @@ hc keybind $Mod-y spawn $Term -e ranger
 hc keybind $Mod-d spawn rofi -show run -theme /usr/share/rofi/themes/android_notification.rasi
 hc keybind $Mod-w spawn rofi -show window -theme /usr/share/rofi/themes/android_notification.rasi
 hc keybind $Mod-b spawn $HOME/dotfiles/scripts/send-status
+hc keybind $Mod-Shift-u spawn $HOME/dotfiles/scripts/toggle-monitors up
+hc keybind $Mod-u spawn $HOME/dotfiles/scripts/toggle-monitors down
 
 # Focus/movement.
 left=j
@@ -42,10 +44,14 @@ hc keybind $Mod-$down               focus down
 hc keybind $Mod-$up                 focus up
 hc keybind $Mod-$right              focus right
 
-hc keybind $Mod-Shift-$left         shift left
-hc keybind $Mod-Shift-$down         shift down
-hc keybind $Mod-Shift-$up           shift up
-hc keybind $Mod-Shift-$right        shift right
+hc keybind $Mod-Shift-$left         or / shift left / \
+                                        chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+hc keybind $Mod-Shift-$down         or / shift down / \
+                                        chain , lock , shift_to_monitor -d , focus_monitor -d , unlock
+hc keybind $Mod-Shift-$up           or / shift up / \
+                                        chain , lock , shift_to_monitor -u , focus_monitor -u , unlock
+hc keybind $Mod-Shift-$right        or / shift right / \
+                                        chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
 
 hc keybind $Mod-BackSpace           cycle_monitor
 
@@ -119,6 +125,7 @@ hc set smart_frame_surroundings 1
 hc set window_gap 20
 hc set smart_window_surroundings 0
 hc set mouse_recenter_gap 0
+hc set auto_detect_monitors 0
 
 # Rules.
 hc unrule -F
