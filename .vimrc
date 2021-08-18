@@ -24,6 +24,8 @@ Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'ajh17/Spacegray.vim'
 
@@ -280,6 +282,11 @@ nmap <leader>rr <Plug>SlimeConfig
 let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_fenced_languages = ["c++=cpp", "viml=vim", "bash=sh",
                                       \"python", "js=javascript"]
+
+" fzf
+let g:fzf_preview_window = ['down:40%', 'crtl-/']
+" https://github.com/junegunn/fzf.vim/issues/50#issuecomment-161676378
+nnoremap <silent> <leader> :Rg <C-R><C-W><CR>
 
 " Javascript/Typescript
 autocmd FileType javascript,typescript set tabstop=2 shiftwidth=2 softtabstop=2
