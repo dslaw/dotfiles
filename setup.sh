@@ -11,9 +11,10 @@ mkdir -p $HOME/.vim/{autoload,bundle}
 sources=(
     .aliases
     .bashrc
-    .config/fish
     .compton.conf
+    .config/fish
     .config/ranger/rc.conf
+    .gitconfig
     .tmux.conf
     .vimrc
     # X11.

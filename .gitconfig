@@ -1,0 +1,15 @@
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    syntax-theme = Nord
+    line-numbers = true
+    side-by-side = true
+    navigate = true
+
+[interactive]
+    diffFilter = delta --color-only
+
