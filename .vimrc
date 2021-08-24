@@ -93,7 +93,7 @@ highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 highlight CursorLineNR ctermfg=white
 
 " add a bar if line goes over boundary
-highlight ColorColumn ctermbg=243 ctermfg=NONE guibg=NONE
+highlight ColorColumn ctermbg=236 ctermfg=NONE guibg=NONE
 highlight Blank cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " Highlight for current window only
