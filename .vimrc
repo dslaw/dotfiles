@@ -203,7 +203,7 @@ function! ReadOnly()
 endfunction
 
 function! GitBranch()
-    let branch = fugitive#head()
+    let branch = FugitiveHead()
     return branch != '' ?
         \ printf('%s %s', "\ue0a0", branch) :
         \ ''
