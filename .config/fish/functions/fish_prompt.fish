@@ -1,5 +1,5 @@
 function _git_branch_name
-    echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+    echo (command git symbolic-ref --short HEAD 2>/dev/null)
 end
 
 function _git_has_untracked
@@ -10,14 +10,14 @@ function _git_is_changed --description "Uncommited changes to tracked file(s)"
     # XXX: `git status --short --untracked-files=no --ignore-submodules=dirty`
     # does this with one less command.
     # Check for unstaged or staged changes.
-    echo (command git diff --name-only ^/dev/null; and\
-                  git diff --name-only --staged ^/dev/null)
+    echo (command git diff --name-only 2>/dev/null; and\
+                  git diff --name-only --staged 2>/dev/null)
 end
 
 function fish_prompt
     set -l last_status $status
 
-    #set -l git_branch (_git_branch_name)
+    set -l git_branch (_git_branch_name)
 
 
     # Check for python virtual/conda env
@@ -34,18 +34,18 @@ function fish_prompt
     set -l git_branch_color (set_color green)
     set -l python_env_color (set_color yellow)
 
-    #if test -n $git_branch -a (_git_is_changed)
-    #    set git_branch_color (set_color red)
-    #end
+    if test -n $git_branch -a (_git_is_changed)
+        set git_branch_color (set_color red)
+    end
 
     # Build the prompt, from left to right.
-    #if test -n $git_branch
-    #    if test (_git_has_untracked)
-    #        set git_branch "$git_branch•"
-    #    end
+    if test -n $git_branch
+        if test (_git_has_untracked)
+            set git_branch "$git_branch•"
+        end
 
-    #    set git_branch $delim"["$git_branch_color$git_branch$delim"] "
-    #end
+        set git_branch $delim"["$git_branch_color$git_branch$delim"] "
+    end
 
     if test -n $python_env
         set python_env $delim"("$python_env_color$python_env$delim") "
@@ -59,8 +59,8 @@ function fish_prompt
 
     # Get display length by removing colors and counting chars.
     set -l display $prompt_info
-    #set display (string replace --all $git_branch_color "" $display)
-    #set display (string replace --all $python_env_color "" $display)
+    set display (string replace --all $git_branch_color "" $display)
+    set display (string replace --all $python_env_color "" $display)
     set display (string replace --all $pwd_color "" $display)
     set display (string replace --all $delim "" $display)
 
