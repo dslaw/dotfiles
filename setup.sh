@@ -14,6 +14,7 @@ sources=(
     .compton.conf
     .config/fish
     .config/ranger/rc.conf
+    .config/kitty/kitty.conf
     .gitconfig
     .tmux.conf
     .vimrc
@@ -51,5 +52,6 @@ for file in ${sources[@]}; do
     fi
 
     echo "  Symlinking"
+    mkdir -p $(dirname ${dst})
     ln -s $src $dst
 done
