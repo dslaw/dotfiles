@@ -32,8 +32,8 @@ URxvt*skipScroll: true
 URxvt*mouseWheelScrollPage: true
 
 ! fc-list to list fonts
-URxvt*font: xft:Inconsolata for Powerline:style=Medium:size=16
-URxvt*boldFont: xft:Inconsolata for Powerline:style=BoldForPowerline:size=16
+URxvt*font: xft:Iosevka:style=Medium:size=12
+URxvt*boldFont: xft:Iosevka:style=Bold:size=12
 
 URxvt*saveLines: 10000
 URxvt*buffered: true
@@ -50,4 +50,3 @@ URxvt.clipboard.pastecmd: xsel -ob
 
 URxvt.internalBorder: 32
 Urxvt.borderColor: background
-
