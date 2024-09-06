@@ -3,7 +3,7 @@
 alias R='R --quiet --no-save'
 alias ipython="ipython --config='~/.ipython_config.py'"
 alias slime='tmux -L slime'
-alias slime-new='slime new-session -s'
+alias slime-new='slime'
 
 alias ls='ls -G --color=auto'
 alias grep='grep --color=auto'
