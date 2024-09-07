@@ -25,7 +25,9 @@ function fish_prompt
     if set -q VIRTUAL_ENV
         set python_env (basename $VIRTUAL_ENV)
     else if set -q CONDA_DEFAULT_ENV
-        set python_env $CONDA_DEFAULT_ENV
+        if test $CONDA_DEFAULT_ENV != "base"
+            set python_env $CONDA_DEFAULT_ENV
+        end
     end
 
     # Colors.
