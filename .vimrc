@@ -22,7 +22,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/clever-f.vim'
 Plug 'FooSoft/vim-argwrap'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -227,9 +227,6 @@ let g:netrw_browse_split = 4
 let g:netrw_liststyle = 3
 let g:netrw_winsize = -18
 
-" Tagbar
-nmap <F3> :TagbarToggle<CR>
-
 " ALE
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
@@ -241,9 +238,6 @@ let g:ale_linters = {"cpp": ["clangtidy"]}
 let g:ale_cpp_clangtidy_options = "-std=c++14 -Wall -Iinclude"
 
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
-" Undotree
-nmap <F5> :UndotreeToggle<CR>
 
 " Clever-f
 let g:clever_f_across_no_line = 1
@@ -280,8 +274,6 @@ nmap <leader>rr <Plug>SlimeConfig
 
 " Vim-Markdown
 let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_fenced_languages = ["c++=cpp", "viml=vim", "bash=sh",
-                                      \"python", "js=javascript"]
 
 " fzf
 let g:fzf_preview_window = ['down:40%', 'crtl-/']
@@ -295,5 +287,4 @@ autocmd FileType javascript,typescript let g:argwrap_padded_braces = '[{'
 " Misc
 autocmd FileType r inoremap <buffer> __ <space><-<space>
 autocmd BufNewFile,BufRead *.jl set ft=julia
-autocmd BufNewFile,BufRead [dD]ocker-compose.yml set ft=dockerfile
 autocmd FileType html,css set tabstop=2 shiftwidth=2 softtabstop=2
